@@ -1,0 +1,42 @@
+.filterformflex {
+  display: flex;
+  flex-flow: wrap;
+  gap: 16px 0px;
+  justify-content: space-around;
+}
+.filterinput {
+  outline: none;
+  background-color: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 3px 4px rgb(0 0 0 / 8%);
+  border-radius: 8px;
+  /* width: 319px; */
+  width: 100%;
+  padding: 14px 25px;
+  font-family: "Nunitos";
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+  appearance: none;
+}
+.modalInput {
+  /* max-width: 200px !important; */
+  width: 92% !important;
+}
+.filterselectinput {
+  outline: none;
+  background: #ffffff !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 3px 4px rgb(0 0 0 / 8%);
+  border-radius: 8px;
+  width: 322px;
+  padding: 14px 25px;
+  font-family: "Nunitos";
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+  appearance: none;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAECAYAAABcDxXOAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABRSURBVHgBZc25DcAgDEBRR3RpU2eH7JAdMkj2YAMaNmIHahoKKGj4SKYBS8+WJR+HiJz4cMkeBd6QGiJe3Do8Fxyy0aYi4NHLCVbrFuPCv77uXPYLBBgeGIUAAAAASUVORK5CYII=);
+  background-position: 90%;
+  background-repeat: no-repeat;
+}

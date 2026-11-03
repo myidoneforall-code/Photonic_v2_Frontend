@@ -1,0 +1,300 @@
+@font-face {
+  font-family: "Nunito-bold-700";
+  src: url(../Assets/Fonts/Nunito-Bold.ttf);
+}
+@font-face {
+  font-family: "Nunito-semibold-600";
+  src: url(../Assets/Fonts/Nunito-SemiBold.ttf);
+}
+@font-face {
+  font-family: "Nunito-regular-400";
+  src: url(../Assets/Fonts/Nunito-Regular.ttf);
+}
+.modal.show .modal-dialog {
+  justify-content: center;
+}
+.modalflex {
+  margin: 2px 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 19px;
+}
+.warning {
+  height: 71px;
+}
+.modalbody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: grey;
+}
+.warningpera {
+  margin: 0 !important;
+  font-size: 17px;
+  font-family: "Nunito-semibold-600";
+}
+.emailinput {
+  outline: none;
+  background-color: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 3px 4px rgb(0 0 0 / 8%);
+  border-radius: 8px;
+  /* width: 319px; */
+  width: 100%;
+  padding: 14px 25px;
+  font-family: "Nunitos";
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+  appearance: none;
+}
+.email_div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.cc_mail_div {
+  display: flex;
+  align-items: center;
+}
+.cc_email_add_button {
+  margin: auto;
+  left: 344px;
+  right: 0;
+  position: absolute;
+  width: 100%;
+  max-width: 29px;
+  color: white;
+  background: #a8b321;
+  border: 1px solid #2488b7;
+  border-radius: 6px;
+  font-family: "Nunito-bold-700";
+}
+.mail_submit {
+  width: 22%;
+  margin: auto;
+  color: white;
+  background: green;
+  border: 1px solid green;
+  border-radius: 5px;
+  padding: 3px 0;
+  font-size: 15px;
+  font-family: "Nunito-semibold-600";
+  text-transform: uppercase;
+}
+.mail_submit:hover {
+  color: green;
+  background: white;
+  border-color: green;
+}
+.cc_email_list {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+  flex-flow: wrap;
+}
+.email_label {
+  font-size: 16px;
+  font-family: "Nunito-semibold-600";
+  font-weight: 500;
+}
+.cc_email_list_data_style {
+  /* background: #8d8a8a; */
+  background: cadetblue;
+  color: white;
+  max-width: 219px;
+  border-radius: 10px;
+  text-align: start;
+  font-size: 15px;
+  padding: 0px 9px;
+  word-break: break-all;
+  border: 1px solid cadetblue;
+}
+.cc_email_list_data_style:hover {
+  border-color: #e5460b;
+}
+.cross_icon {
+  margin-left: 7px;
+  font-size: 14px;
+  color: #db2222;
+}
+.send_mail {
+  font-family: "Nunito-semibold-600";
+}
+.emailTimeDov {
+  display: flex;
+  gap: 20px;
+}
+.emailTimeDov > div {
+  display: flex;
+  align-items: center;
+}
+.deviceDatainMerge > p {
+  font-family: "Nunito-bold-700" !important;
+  font-size: 15px !important;
+  color: #414141 !important;
+  margin-bottom: 3px;
+}
+.deviceDatainMerge span {
+  font-family: "Nunito-bold-700";
+  font-size: 15px;
+  color: gray;
+}
+.mergedevicebox {
+  width: 100%;
+  background: #fff6e9;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid #ffb1002b;
+}
+
+.messageText {
+  color: rgb(74, 74, 74);
+  text-align: center;
+  word-wrap: break-word;
+  width: 100%;
+  font-size: 15px;
+}
+.messageHead {
+  font-family: "Nunito-semibold-600";
+  font-size: 20px;
+}
+.description {
+  font-size: 13px;
+  font-family: "Nunito-regular-400";
+  margin: 4px 0px;
+}
+.description span {
+  color: red;
+}
+.NotificationContainer {
+  display: flex;
+}
+.notificationData {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+.notificationData p {
+  font-size: 14px;
+  font-family: "Nunito-regular-400";
+  color: #000;
+}
+
+.modalButton {
+  min-width: 120px;
+  height: 38px;
+  font-family: "Nunito-semibold-600" !important;
+  font-size: 16px !important;
+  border: none !important;
+}
+.instructText {
+  font-size: 13px;
+  font-family: "Nunito-regular-400";
+  color: #5c5c5c;
+}
+.fileButton {
+  border: 1px solid #ffb2c0;
+  border-radius: 4px;
+  height: 33px;
+  padding: 0px 20px;
+  background: #ffdae0;
+  font-family: "Nunito-semibold-600";
+  font-size: 14px;
+  width: 110px;
+}
+.fileName {
+  margin-bottom: 0px;
+  font-family: "Nunito-regular-400";
+  font-size: 13px;
+  background: #aae4ff;
+  padding: 4px 9px;
+  border-radius: 13px;
+}
+.EditFieldsBlock {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #fff1b461;
+  border: 1px solid #fff1b4;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  flex-direction: column;
+}
+
+.amcCard {
+  background-color: #e5f4ff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 10%);
+  border: 1px solid #d6edff;
+  padding: 7px 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.amcHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.amcHead h3 {
+  font-size: 15px;
+  color: #002443;
+  font-family: "Nunito-semibold-600";
+}
+.amcHead img {
+  width: 11px;
+  cursor: pointer;
+}
+.amcCard p {
+  font-size: 14px;
+  color: #353535;
+  font-family: "Nunito-semibold-600";
+  margin: 0px !important;
+}
+.amcCard span {
+  word-break: break-all;
+}
+
+.subLableStyle {
+  font-size: 14px;
+  font-family: "Nunito-regular-400";
+  padding-left: 1px;
+}
+
+.controllerDeleteTitle {
+  margin: 0 !important;
+  font-size: 18px;
+  font-family: "Nunito-bold-700";
+  color: #1e293b;
+  text-align: center;
+}
+
+.controllerDeleteWarnBox {
+  width: 100%;
+  background: #fff8e9;
+  border: 1px solid #ffe2a8;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.controllerDeleteWarnText {
+  margin: 0 !important;
+  font-size: 13.5px;
+  line-height: 1.5;
+  font-family: "Nunito-regular-400";
+  color: #8a5a00;
+  text-align: left;
+}
+
+.controllerDeleteWarnText b {
+  font-family: "Nunito-semibold-600";
+  color: #6b4400;
+}

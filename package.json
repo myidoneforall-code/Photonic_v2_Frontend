@@ -1,0 +1,92 @@
+{
+  "name": "photonic",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@coreui/react": "^4.5.1",
+    "@coreui/react-chartjs": "^2.1.1",
+    "@emotion/styled": "^11.14.0",
+    "@ionic/react": "^6.3.9",
+    "@mui/material": "^6.4.5",
+    "@mui/x-date-pickers": "^7.27.1",
+    "@react-google-maps/api": "^2.17.1",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "antd": "^5.19.3",
+    "antd-style": "^3.7.1",
+    "apexcharts": "^5.3.5",
+    "axios-react": "^2.0.8",
+    "bootstrap": "^5.2.3",
+    "canvasjs-react-charts": "^1.0.5",
+    "chart.js": "^4.2.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-plugin-zoom": "^2.2.0",
+    "dateformat": "^5.0.3",
+    "dayjs": "^1.11.12",
+    "faker": "^6.6.6",
+    "file-saver": "^2.0.5",
+    "formik": "^2.2.9",
+    "html2canvas": "^1.4.1",
+    "i": "^0.3.7",
+    "lodash": "^4.17.21",
+    "npm": "^9.4.0",
+    "rc-time-picker": "^3.7.3",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.7.0",
+    "react-auto-tab": "^2.0.1",
+    "react-bootstrap": "^2.6.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-charts": "^2.0.0-beta.7",
+    "react-datepicker": "^4.8.0",
+    "react-dom": "^18.2.0",
+    "react-formik-yup": "^1.0.16",
+    "react-hot-toast": "^2.4.0",
+    "react-icons": "^4.11.0",
+    "react-paginate": "^8.1.4",
+    "react-redux": "^8.0.5",
+    "react-router": "^6.4.3",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.7.0",
+    "react-tabs": "^6.0.0",
+    "reactstrap": "^5.0.0-alpha.1",
+    "sheetjs-style": "^0.15.8",
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5",
+    "yup": "^0.32.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "homepage": ".",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/reactstrap": "^8.7.1",
+    "ajv": "^8.20.0",
+    "ajv-keywords": "^5.1.0",
+    "chartjs-adapter-moment": "^1.0.1",
+    "moment": "^2.29.4"
+  }
+}

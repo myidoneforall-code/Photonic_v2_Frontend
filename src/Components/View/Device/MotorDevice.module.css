@@ -1,0 +1,65 @@
+.con_device_page_parent_head {
+    font-weight: 600;
+    text-transform: capitalize;
+    color: black;
+  }
+  .total_device {
+    display: grid;
+    /* gap: 20px; */
+    grid-template-columns: repeat(1,1fr);
+}
+.history_detail {
+  padding: 15px 18px 20px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px;
+}
+.controller_padding
+{
+  /* padding: 15px 18px 0px; */
+  padding: 20px 20px 0px;
+
+
+}
+.history_padding
+{
+  /* padding: 15px 18px 20px; */
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 20px;
+
+}
+.subdetail {
+  background: white;
+  box-shadow: 0px 3px 6px 3px #8080803d;
+  border-radius: 6px;
+  padding: 16px 17px;
+  width: 25%;
+}
+@media (max-width:1386px) {
+  .subdetail {
+ 
+    width: 50%;
+  }
+}
+@media (max-width:700px) {
+  .subdetail {
+ 
+    width: 100%;
+  }
+}
+.status_div_flex {
+  display: flex;
+  justify-content: space-between;
+  /* gap: 30px 214px; */
+  flex-wrap: wrap;
+}
+.nodata_found_in_device_history_view
+{
+  color:white!important;
+  font-family: "Nunito-bold-700";
+  text-transform: capitalize;
+  margin-bottom: 0px;
+  font-size: 20px!important;
+}

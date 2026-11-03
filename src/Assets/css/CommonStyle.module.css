@@ -1,0 +1,262 @@
+.cards_border_radius {
+  border-radius: 17px !important;
+}
+
+.cards_padding {
+  padding: 13px 13px;
+}
+
+.Delete_icon_color {
+  color: red;
+  cursor: pointer;
+}
+
+.btn_border_radius {
+  border-radius: 6px;
+}
+
+.outer_card_btn {
+  padding: 5px 11px;
+  text-transform: capitalize;
+  font-size: 15px;
+  border-radius: 6px;
+}
+
+.parent_heading_in_all_page {
+  font-size: 27px;
+  font-family: "Nunito-semibold-600";
+  margin: 0 !important;
+}
+
+.child_heading_in_all_page {
+  font-size: 25px;
+  font-family: "Nunito-semibold-600";
+  margin: 0 !important;
+}
+
+.child_heading_div {
+  margin-top: 20px;
+}
+
+/* .router-pages {
+    margin: 5px 20px;
+} */
+.margin_zero {
+  margin: 0 !important;
+}
+
+.no_data_found {
+  text-align: center;
+  margin: 3% auto;
+  color: #64748b;
+  font-size: 30px;
+  text-transform: capitalize;
+}
+
+.deldev_flextwo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter_icon {
+  padding: 6px 11px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 2px 4px rgb(0 0 0 / 21%);
+  cursor: pointer;
+}
+
+.filter_icon:hover {
+  background: #afc4d7;
+}
+
+.email_btn {
+  color: white;
+  background: #fbc225;
+  border: 1px solid #fbc225;
+}
+
+.email_btn:hover {
+  color: #fbc225;
+  background: white;
+  border: 1px solid #fbc225;
+}
+
+.add_controller_btn {
+  background: green;
+  border: 1px solid green;
+  color: white;
+}
+
+.add_controller_btn:hover {
+  background: white;
+  border: 1px solid green;
+  color: green;
+}
+
+.cnt_buttons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.delete_controller_btn {
+  color: white;
+  background: red;
+  border: 1px solid red;
+}
+
+.delete_controller_btn:hover {
+  color: red;
+  background: white;
+  border: 1px solid red;
+}
+
+.pagination_bottom {
+  margin-bottom: 80px;
+}
+
+.item_name {
+  margin-bottom: 0 !important;
+  background: #259ed3;
+  color: white;
+  border-radius: 30.8355px;
+  padding: 4px 7px;
+  font-size: 15px;
+  text-align: left;
+  display: block;
+  white-space: nowrap;
+  width: 10em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.createdby {
+  margin-bottom: 0 !important;
+  background: #4d45bd94;
+  color: white;
+  border-radius: 30.8355px;
+  max-width: 59%;
+  padding: 4px 7px;
+  font-size: 13px;
+  text-align: left;
+  display: block;
+  white-space: nowrap;
+  width: 7em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.controller_head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  flex-flow: wrap;
+  align-items: center;
+}
+
+.CheckLineList {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.CheckLineList p {
+  margin-bottom: 0;
+}
+
+.BoxContainer {
+  background: white;
+  padding: 10px 10px;
+  margin: 6px 0px !important;
+  margin-bottom: 80px !important;
+  border-radius: 20px;
+  row-gap: 10px;
+}
+
+.messageHead {
+  font-family: "Nunito-semibold-600";
+  font-size: larger;
+  margin: 0px;
+}
+
+.description {
+  color: blueviolet;
+  margin: 0px;
+  font-family: "Nunito-regular-400";
+}
+
+/* {
+  font-weight: 600;
+    font-family: "Nunito-regular-400" !important;
+    margin-bottom: 0px !important;
+    font-size: 15px;
+    text-transform: capitalize;
+    color: #000000c7;
+} */
+.soltFlex {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-flow: wrap;
+  align-items: center;
+  /* margin-bottom: 5px; */
+}
+.soltFlex p {
+  margin: 0px;
+  font-weight: 600;
+  font-family: "Nunito-regular-400" !important;
+  font-size: 15px;
+  text-transform: capitalize;
+  color: #000000c7;
+}
+.slotItmesFlex {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.slotContainer {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-direction: row;
+  flex-flow: wrap;
+}
+.ItemLineData {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.CartItemBox {
+  box-shadow: 0px 3px 6px 3px #8080803d;
+  display: flex;
+  flex-direction: column;
+  gap: 7px 0px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.rowStyle {
+  display: flex;
+  flex-direction: row;
+  /* flex-flow: wrap; */
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.deviceHeader {
+  font-family: "Nunito-bold-700";
+  font-size: medium;
+  color: #2d4f8d;
+  margin-bottom: 0px;
+  /* text-align: center; */
+}
+.actionBlock {
+  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}

@@ -1,0 +1,115 @@
+.delete_device_name {
+    text-transform: capitalize;
+    color: black;
+}
+.deldev_head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+.delete_device_div {
+    display: grid;    
+    gap: 20px;
+    grid-template-columns: repeat(4,1fr);
+    margin-top: 20px;
+}
+@media (max-width:1601px)
+{
+    .delete_device_div
+    {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+@media (max-width:1207px)
+{
+    .delete_device_div
+    {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+@media (max-width:813px)
+{
+    .delete_device_div
+    {
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+.deldev_bg {
+    background: white;
+    box-shadow: 1px 3px 8px 4px #cdc8c8;
+    border-radius: 10px;
+    /* width: 100%; */
+    /* max-width: 391px; */
+}
+.deldev_flex {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    padding: 10px;
+    /* width: 100%; */
+    /* max-width: 391px; */
+}
+.deldev_flexone {
+    display: flex;
+    align-items: baseline;
+    /* gap: 100px; */
+    justify-content: space-between;
+}
+.deldev_name {
+    margin: 0;
+    background: skyblue;
+    /* width: 100%; */
+    border-radius: 7px;
+    padding: 2px 8px;
+    /* text-align: center; */
+    /* display: block; */
+    /* white-space: nowrap; */
+    /* width: 6em; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    inline-size: 178px;
+    max-width: 178px;
+    word-break: break-word;
+}
+.deldev_buttonflex {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.delcon_head {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap;
+    align-items: center;
+}
+.delcon_bg {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 10px rgb(0 0 0 / 22%);
+}
+.delcon_flex {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.delcon_flex_one {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.delete_dev_name {
+    margin-bottom: 0 !important;
+    background: #0095a7;
+    border-radius: 10px;
+    padding: 6px 7px;
+    font-size: 15px;
+    inline-size: 150px;
+    color: white;
+    box-shadow: 1px 2px 2px #808080c7;
+    word-break: break-word;
+}
+.deldev_pagination_flex{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

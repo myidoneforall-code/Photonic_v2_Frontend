@@ -1,0 +1,398 @@
+@font-face {
+  font-family: "Nunito-bold-700";
+  src: url(../../Assets/Fonts/Nunito-Bold.ttf);
+}
+@font-face {
+  font-family: "Nunito-semibold-600";
+  src: url(../../Assets/Fonts/Nunito-SemiBold.ttf);
+}
+@font-face {
+  font-family: "Nunito-regular-400";
+  src: url(../../Assets/Fonts/Nunito-Regular.ttf);
+}
+.auth-container {
+  margin: auto;
+}
+/* .page-height {
+  min-height: 100vh;
+  max-height: 100%;
+  height: 100%;
+} */
+/* .top_bg{
+    background-image: url(../image/top_bg.svg);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 160px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+} */
+/* .bottom_bg{
+    background-image: url(../image/bottom_bg.svg);
+    background-repeat: no-repeat;
+    width: 483px;
+    height: 160px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+} */
+/* .auth-form {
+  margin-top: 26px !important;
+} */
+.auth-label label {
+  text-transform: capitalize;
+  font-family: "Nunito-semibold-600";
+  margin-bottom: 12px;
+  color: #000000;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 20px !important;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 15px 45px 14px 15px;
+  outline: none;
+  background-color: #ffffff !important;
+  border: 1px solid #a6aac6de;
+  box-shadow: 0px 0px 8px rgb(76 87 125 / 10%);
+  border-radius: 12px;
+  /* margin: 22px 20px 0 0; */
+  /* position: relative; */
+  z-index: 999999;
+}
+/* .forgot-password
+{
+    margin: auto;
+    float: right;
+    margin-top: 24px !important;
+    color: black !important;
+} */
+.login-head {
+  text-transform: capitalize;
+  margin-bottom: 20px;
+  font-size: 28px !important;
+  font-family: "Nunito-semibold-600";
+}
+.vfy_head {
+  font-size: 24px !important;
+}
+.login-button {
+  text-transform: capitalize;
+  background: #fcc32b;
+  border: none;
+  padding: 14px 60px;
+  font-weight: 500;
+  font-size: 18px;
+  color: #ffffff;
+  border-radius: 10px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+.fgt_btn {
+  padding: 11px 24px !important;
+  font-size: 17px !important;
+}
+.login-div {
+  margin-top: 38px;
+  text-align: center;
+}
+.login-div p {
+  color: #5e6061;
+}
+.login-div span {
+  color: rgb(57, 150, 193) !important;
+  font-weight: 500;
+  font-family: "Nunito-bold-700";
+  cursor: pointer;
+}
+::-webkit-input-placeholder {
+  text-transform: capitalize;
+  font-size: 15px;
+}
+.input-cover {
+  position: relative;
+}
+.icon-position {
+  top: 49px !important;
+}
+/* .auth-password{
+    margin-bottom: 12px;
+} */
+.eye-icon {
+  position: absolute;
+  top: 17px;
+  right: 32px;
+  font-size: 22px;
+}
+.eye-icon:hover {
+  cursor: pointer;
+}
+.inputerror {
+  color: #e70000;
+  margin: 0;
+  font-size: 15px;
+  /* position: absolute;
+  left: 0;
+  bottom: -22px; */
+  font-family: "Nunito-semibold-600";
+}
+
+.auth-bg {
+  background-image: url(../image/bg.png);
+  width: 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: cover;
+  padding: 20px 0px;
+}
+.img_section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img_section img {
+  max-height: 450px;
+}
+
+.login-div p {
+  margin: 10px 0 0 0;
+  font-family: "Nunito-semibold-600";
+}
+
+.authc_form {
+  justify-content: space-around !important;
+}
+.auth-container .photonic-logo {
+  width: 210px;
+  margin-bottom: 25px;
+}
+.regerror {
+  position: absolute !important;
+}
+.input-sections input {
+  width: 100% !important;
+  max-width: 100% !important;
+  /* position: relative; */
+}
+.padding_right {
+  width: calc(50% - 10px) !important;
+  position: relative;
+}
+.padding_left {
+  width: calc(50% - 10px) !important;
+}
+
+.forgot-password {
+  float: right !important;
+  text-align: right;
+  text-transform: capitalize;
+  margin: auto;
+  /* margin-top: -24px !important; */
+  color: rgb(57, 150, 193) !important;
+  font-family: "Nunito-semibold-600";
+}
+.dropdown-toggle::after {
+  display: none !important;
+  content: none !important;
+}
+.dropdownlink {
+  border: transparent;
+  background-color: transparent;
+  outline: transparent;
+}
+/* <Registration Section> */
+
+.input-sections {
+  margin-bottom: 30px;
+  position: relative;
+  margin-top: 30px !important;
+}
+
+.pword-icon {
+  position: absolute !important;
+  right: 30px;
+  bottom: 17px;
+}
+.new-pword-icon {
+  position: absolute !important;
+  right: 31px;
+  bottom: 19px;
+  font-size: 22px;
+}
+/* .cpword-icon{
+    position: absolute !important;
+    right: 27px;
+    bottom: 19px; 
+} */
+.position {
+  position: relative;
+}
+.mt {
+  margin-top: 30px !important;
+}
+
+/* <forgotpassword section> */
+
+.or_tag {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 45px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.otp_btn {
+  margin-top: 15px !important;
+}
+
+/* <otp section> */
+
+.input-otp {
+  padding: 10px 0px !important;
+  /* border: 1px solid gainsboro; */
+  border-radius: 10px;
+  text-align: center;
+  width: 62px !important;
+  font-size: 21px;
+  border: 1px solid #a6aac6de;
+  outline: none;
+  font-family: "Nunito-semibold-600";
+}
+.otp_sections {
+  justify-content: center;
+  gap: 22px;
+}
+.resend {
+  margin-top: 15px !important;
+}
+
+/* <create password section> */
+
+.createpw_btn button {
+  margin-top: 10px !important;
+}
+
+.pword_section {
+  position: relative;
+}
+
+/* <responsive> */
+
+@media (max-width: 1300px) {
+  .authc_form {
+    flex-direction: column;
+    align-items: center;
+  }
+  .pword_section {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .u_name-section {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+@media (max-width: 992px) {
+  .img_section {
+    display: none;
+  }
+}
+@media (min-width: 320px) and (max-width: 574px) {
+  .auth-input {
+    padding: 14px 15px;
+  }
+
+  .auth-bg {
+    background-image: url(../image/bg_sm.png) !important;
+  }
+  .authc_form label {
+    margin-top: 0px !important;
+  }
+  .forgot-password {
+    margin-right: 0px !important;
+  }
+  .login-button {
+    padding: 14px 40px;
+    font-size: 15px;
+  }
+  .input-otp {
+    padding: 10px !important;
+  }
+  .otp_sections {
+    gap: 15px;
+  }
+  .resend {
+    margin-top: 0px !important;
+  }
+  .login-head {
+    font-size: 25px !important;
+  }
+}
+@media (max-width: 991px) {
+  .mt {
+    margin-top: 30px !important;
+  }
+}
+@media (max-width: 400px) {
+  .input-otp {
+    padding: 12px !important;
+  }
+  .otp_sections {
+    gap: 10px;
+  }
+}
+@media (max-width: 1200px) {
+  .padding_left {
+    width: 100% !important;
+  }
+  .padding_right {
+    width: 100% !important;
+    margin-bottom: 30px;
+  }
+  .or_tag {
+    top: 100px;
+  }
+}
+.star {
+  color: #e70000;
+  font-size: 16px;
+  font-family: "Nunito-bold-700";
+}
+.link-underline {
+  text-decoration: none;
+}
+@media (min-width: 575px) and (max-width: 991px) {
+  .auth-bg {
+    background-image: url(../image/bg_md.png) !important;
+  }
+}
+.otperror {
+  margin-top: 11px !important;
+  text-align: center;
+}
+.otptimer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  align-items: baseline;
+  align-items: flex-end;
+}
+.resendotp {
+  color: #e93737;
+  font-weight: 500;
+  font-family: "Nunito-bold-700";
+  cursor: pointer;
+}
+.otp {
+  color: #5e6061;
+  font-family: "Nunito-semibold-600";
+  margin-bottom: 0px;
+  margin-top: 7px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,10 @@
+.pagecontainer {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  height: 100%;
+}
+
+.topnav {
+  background-color: red;
+}

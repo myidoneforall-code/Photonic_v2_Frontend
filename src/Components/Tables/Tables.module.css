@@ -1,0 +1,219 @@
+.tableContainer {
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-top: 16px;
+  border-radius: 11px;
+}
+
+.ReportTable,
+.SMSTable {
+  overflow-y: auto;
+
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+}
+
+.ReportTable Table,
+.SMSTable table {
+  box-shadow: none !important;
+  margin: 0px !important;
+  border: none !important;
+  /* box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; */
+}
+
+.ReportTable Table thead tr,
+.SMSTable Table thead tr {
+  border-bottom: 1px solid #fff2f242 !important;
+}
+
+.ReportTable Table tbody tr,
+.SMSTable Table tbody tr {
+  border-bottom: 1px solid #fff2f242 !important;
+  border-radius: 20px;
+  /* box-shadow: none !important; */
+}
+
+.ReportTable Table>thead>tr>th,
+.SMSTable Table>thead>tr>th {
+  background-color: #ffd8d8 !important;
+  font-family: "Nunito-bold-700" !important;
+  padding: 8px 10px !important;
+  color: #030101 !important;
+}
+
+.ReportTable Table>thead>tr>th:nth-child(1),
+.SMSTable Table>thead>tr>th:nth-child(1) {
+  border-radius: 4px 0px 0px 0px !important;
+}
+
+.ReportTable Table>thead>tr>th:last-child,
+.SMSTable Table>thead>tr>th:last-child {
+  border-radius: 0px 4px 0px 0px !important;
+}
+
+.ReportTable Table>tbody>tr>td,
+.SMSTable Table>tbody>tr>td {
+  /* background-color: #fff6f6 !important; */
+  padding: 8px 10px !important;
+  font-size: 15px !important;
+  font-family: "Nunito-semibold-600" !important;
+}
+
+
+.ReportTable Table>thead>tr>th:first-child,
+.ReportTable Table>tbody>tr>td:first-child {
+  position: sticky;
+  left: 0;
+}
+
+
+
+
+.ReportTable Table>tbody>tr:nth-child(odd)>td:nth-last-child(-n+3) {
+  background-color: #fff8f8;
+  z-index: 1 !important;
+}
+
+.ReportTable Table>tbody>tr:nth-child(even)>td:nth-last-child(-n+3) {
+  background-color: #fff;
+  z-index: 1 !important;
+}
+
+.ReportTable Table>tbody>tr:nth-child(odd),
+.SMSTable Table>tbody>tr:nth-child(odd) {
+  background-color: #fff8f8;
+}
+
+.ReportTable Table>tbody>tr:nth-child(even),
+.SMSTable Table>tbody>tr:nth-child(even) {
+  background-color: #fff;
+}
+
+.ReportTable Table>thead>tr>th:nth-last-child(3),
+.ReportTable Table>tbody>tr>td:nth-last-child(3) {
+  position: sticky;
+  right: 170px;
+  min-width: 100px;
+  /* Adjust as per your column width */
+}
+
+.ReportTable Table>thead>tr>th:nth-last-child(2),
+.ReportTable Table>tbody>tr>td:nth-last-child(2) {
+  position: sticky;
+  right: 70px;
+  min-width: 100px;
+  /* Adjust as per your column width */
+}
+
+.ReportTable Table>thead>tr>th:last-child,
+.ReportTable Table>tbody>tr>td:last-child {
+  position: sticky;
+  min-width: 70px;
+  right: 0;
+
+}
+
+.tablenoDatatext {
+  color: rgb(0 0 0 / 51%) !important;
+  font-family: "Nunito-bold-700" !important;
+  text-transform: capitalize !important;
+  margin-bottom: 0px !important;
+  font-size: 17px !important;
+  text-align: center;
+  padding: 40px 0px !important;
+}
+
+.TableHeaderWidth {
+  max-width: 180px !important;
+}
+
+.editIcon {
+  width: 18px;
+  cursor: pointer;
+}
+
+.messageDeletebtn {
+  background: #f22f46;
+  width: 100%;
+  border: none;
+  width: -moz-fit-content;
+  width: fit-content;
+  outline: none;
+  padding: 5px 20px;
+  border-radius: 2px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-family: "Nunito-semibold-600";
+  font-size: 16px;
+  gap: 5px;
+}
+
+.activestatusTD {
+  background-color: #218f21;
+  padding: 3px 7px;
+  border-radius: 15px;
+  text-align: center;
+  font-family: "Nunito-semibold-600";
+  color: #fff;
+  font-size: 13px;
+  margin-bottom: 0px;
+  width: 80px;
+}
+
+.statusTD {
+  background-color: #ed4848;
+  padding: 3px 7px;
+  border-radius: 15px;
+  text-align: center;
+  font-family: "Nunito-semibold-600";
+  color: #fff;
+  margin-bottom: 0px;
+  font-size: 13px;
+  width: 80px;
+}
+
+.tablewidth200 {
+  min-width: 200px;
+}
+
+.tablewidth150 {
+  min-width: 150px;
+}
+
+.tablewidth110 {
+  min-width: 110px;
+}
+
+.tablewidth100 {
+  min-width: 100px;
+}
+
+.tabelHightWidth {
+  max-width: 300px;
+  min-width: 100px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+
+.tableCheckBoxTd {
+  width: 100px !important;
+}
+
+.TableWrapWidth {
+  min-width: 100px;
+  max-width: 300px;
+  white-space: pre-line;
+  word-break: break-all;
+}
+
+.highlightRow {
+  background-color: #fffbe1 !important;
+}

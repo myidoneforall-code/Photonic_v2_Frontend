@@ -1,0 +1,104 @@
+.userimg {
+  width: 76px;
+  /* border: 1px solid blue; */
+  /* color: red; */
+  background: white;
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 1px 2px 5px 4px rgb(0 0 0 / 8%);
+}
+.prouser {
+  display: flex;
+  justify-content: center;
+  /* text-align: end; */
+  /* margin-top: -66px; */
+  align-items: baseline;
+  margin-bottom: 13px;
+  /* width: 80%; */
+}
+.editprofile {
+  width: 20px;
+  cursor: pointer;
+  /* float: right; */
+  /* left: 0px;
+  margin-top: -19px;
+  position: relative; */
+  margin-left: -16px;
+}
+.user_page_head {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000000;
+  font-family: "Nunito-semibold-600";
+  font-size: 27px;
+  margin: 0;
+  cursor: pointer;
+}
+.view-page {
+  position: relative;
+}
+.userinput {
+  outline: none;
+  background: #f1f8ff;
+  box-shadow: 0px 3px 4px rgb(0 0 0 / 8%);
+  border-radius: 8px;
+  /* width: 463px; */
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 15px 22px;
+  font-family: "Nunitos";
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+  appearance: none;
+  border: none;
+}
+.usersave {
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #1f78a4;
+  padding: 6px 21px;
+  border-radius: 6px;
+  /* float: right; */
+  /* top: -12px; */
+  margin-top: 19px;
+}
+.select-div {
+  background: rebeccapurple !important;
+}
+.editpwd {
+  margin-left: -33px;
+  margin-top: 19px;
+  position: absolute;
+  cursor: pointer;
+}
+.modalcont {
+  padding: 2px 2px;
+}
+.modalform {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: flex-start;
+  gap: 21px 41px;
+  padding: 2px 24px;
+}
+.profileimg {
+  width: 20px;
+  float: right;
+  cursor: pointer;
+}
+.adduser_eye_icon {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  font-size: 22px;
+  cursor: pointer;
+  right: 26px;
+}
+.profiledivflex {
+  display: flex;
+  gap: 25px;
+  flex-flow: wrap;
+  padding: 10px;
+}

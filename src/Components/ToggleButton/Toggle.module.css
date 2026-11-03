@@ -1,0 +1,40 @@
+.input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 53px;
+  height: 25px;
+  padding-left: 23px;
+  padding-top: 4px;
+  margin: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+      circle 8px,
+      white 80%,
+      transparent calc(100% + 0px)
+    )
+    #ccc -16px;
+  transition: 0.3s ease-in-out;
+  font-family: var(--fontRegular);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.input::before {
+  content: "OFF";
+  color: white;
+  text-shadow: 0 1px black;
+}
+
+.input:checked {
+  padding-left: 8px;
+  background-color: green;
+  background-position: 16px;
+}
+
+.input:checked::before {
+  content: "ON";
+}
+
+input[type="checkbox"] {
+  background-color: red;
+}

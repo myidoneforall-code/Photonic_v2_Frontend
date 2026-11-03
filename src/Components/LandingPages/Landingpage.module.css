@@ -1,0 +1,368 @@
+@font-face {
+    font-family: "Nunito-bold-700";
+    src: url(../../Assets/Fonts/Nunito-Bold.ttf);
+  }
+  @font-face {
+    font-family: "Nunito-semibold-600";
+    src: url(../../Assets/Fonts/Nunito-SemiBold.ttf);
+  }
+  @font-face {
+    font-family: "Nunito-regular-400";
+    src: url(../../Assets/Fonts/Nunito-Regular.ttf);
+  }
+  @font-face {
+    font-family: "poppins-regular-700";
+    src: url(../../Assets/Fonts/NunitoSans_7pt_Condensed-Black.ttf);
+  }
+
+ .headr_container
+ {
+  /* background-color: #f5f5f5; */
+   background-color: #EFF1F6;
+  /* background-color: #E0E3DA; */
+ }
+.landing_page_navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  /* border-bottom: 1px solid #7320e71a; */
+}
+.parent_div
+{
+  max-width: 1320px;
+  margin: auto;
+
+}
+.parent_container {
+  padding: 30px 0px 70px;
+}
+.nav_container
+{
+  max-width: 1320px;
+  margin: auto;
+}
+.banner_container
+{
+  max-width: 1320px;  
+  margin: auto ;
+  width: 100%;
+
+}
+.privacy_policy_div{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+  margin: auto;
+  padding: 14px 0;
+  flex-flow: wrap;
+}
+.privacy_policy_div p{
+  margin: 0;
+  /* color: #490a3d; */
+  color: white;
+  font-family: "Nunito-regular-400";
+}
+.textalign
+{
+text-align: none;
+}
+
+
+.pera_margin
+{
+  font-family: "poppins-regular-700";
+  text-transform: capitalize;
+  font-size: 36px;
+  color: white;
+  width: 100%;
+  word-break: break-word;
+  max-width: 1000px;
+  text-shadow: 2px 1px #141313a3;
+  animation-name: example;
+  animation-duration: 2s;
+}
+@keyframes example {
+  0% {color:#ffffff4f;margin-bottom: 80px; }
+}
+
+.sub_pera
+{
+  font-family: "Nunito-regular-400";
+  font-size: 18px;
+  color: black;
+  /* margin: 15px 0; */
+  text-indent: 40px;   
+  text-align: justify;
+}
+.sub_heading{
+  font-family: "Nunito-bold-700";
+  text-transform: capitalize;
+  font-size: 30px;
+  color: #1d1d1d;
+}
+.heading{
+  font-family: "poppins-regular-700";
+  text-transform: capitalize;
+  font-size: 36px;
+  color: white;
+  width: 100%;
+  word-break: break-word;
+  text-shadow: 2px 1px #141313a3;
+  animation-name: example;
+  animation-duration: 2s;
+  text-align: center;
+}
+.contact_heading {
+  color: #443c77;
+  font-family: Nunito-bold-700;
+  font-size: 30px;
+  text-transform: capitalize;
+}
+.list{
+  list-style: none;
+  padding: 0;
+}
+.list li{
+  font-family: "Nunito-regular-400";
+  font-size: 18px;
+  color: black;
+  margin: 10px 0;
+  /* list-style-image: url(../../Assets//image//bullet_point_icon.png); */
+}
+.privacy_policy_line
+{
+  border-left: 1px solid antiquewhite;
+}
+.contact_div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-around;
+  width: 70%;
+  margin: 11px auto 50px;
+}
+
+.contact_us_sub_div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.contact_us_sub_div p{
+  margin: 0;
+  font-family: "Nunito-regular-400";
+  font-size: 18px;
+  color: white;
+  line-height: normal;
+}
+.contact_us_sub_div img{
+  width: 28px;
+}
+.contact_us_div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sub_contact_head
+{
+  font-family: "Nunito-regular-400";
+  color: white;
+  font-size: 25px;
+  font-weight: 900;
+}
+.footer span:hover
+{
+cursor: pointer;
+}
+
+.login_button {
+  color: white!important;
+  background: #01A0E2!important;
+  border-radius: 7px;
+  height: 39px;
+  width: 97px;
+  text-align: center;
+  font-weight: 600!important;
+  margin-left: 10px;
+}
+.contact_us_button
+{
+  font-weight: 600!important;
+  color: black!important;
+}
+.contact_us_button_active
+{
+  font-weight: 600!important;
+  color: rgb(55, 151, 237)!important;
+}
+.footer_div {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #065272;
+}
+/* .footer_container
+{
+  background: black;
+} */
+.poin_design
+{
+  color: #bd1550;   
+  margin: 0 7px 4px 0;
+  font-size: 15px;
+}
+.home_banner_images {
+  background-image: url(../../Assets/image/landing_page_banner.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 400px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-position: center;
+}
+.tearmsandconditions_banner_images {
+  background-image: url(../../Assets/image/banner-1.jpg);
+  background-repeat: no-repeat;
+  background-attachment: inherit;
+  background-size: cover;
+  height: 260px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-position: bottom;
+}
+.privacypolicy_banner_images {
+  background-image: url(../../Assets/image/banner-2\ \(2\).jpg);
+  background-repeat: no-repeat;
+  background-attachment: inherit;
+  background-size: cover;
+  height: 260px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-position: center;
+}
+
+.contact_container
+{
+  background-color: #076087;
+  /* background-color: #E0E3DA; */
+  padding: 20px 0px;
+}
+.home_img_containers {
+  display: flex;
+  justify-content: center;
+}
+
+.home_text_containers {
+  display: flex;
+  align-items: center;
+}
+
+.home_images_style {
+  width: 350px;
+    transition: transform .5s ease;
+  /* transition: 1s; */
+  /* animation-name: 1s homeimage; */
+}
+.home_images_style:hover{
+  /* width: 355px; */
+  transform: scale(1.1);
+  animation: 1s homeimage;
+}
+@keyframes homeimage {
+  0% {
+  transform: scale(1);
+  }
+  100%{
+  transform: scale(1.1);
+  }
+}
+.container_padding
+{
+  padding: 40px 0;
+}
+.contact_text
+{
+  font-family: "Nunito-regular-400";
+  font-size: 18px;
+  color: white;
+  margin: 15px 0;
+}
+.container_background
+{
+  background-color: #eef6ff73;
+}
+.home_container_padding
+{
+  padding: 30px 0px 30px;
+}
+.home_container_left_right_padding
+{
+
+}
+
+@media (max-width:1380px) {
+  .parent_container,.banner_container
+{
+  padding: 30px
+}
+.privacy_policy_div
+{
+  padding: 14px 40px;
+}
+.home_container_left_right_padding
+{
+  padding: 0 30px
+}
+/* .parent_container{
+  padding: 30px 0px 70px;
+} */
+.home_banner_images
+{
+  height: 260px;
+}
+}
+
+@media (max-width:926px){
+  .privacy_policy_div {
+    gap:10px;
+    justify-content: center;
+}
+.textalign
+{
+  text-align: center;
+}
+}
+@media (max-width:767px) {
+.flex_direction
+  {
+    flex-direction: column-reverse;
+  }
+  .pera_margin{
+    font-size: 26px;
+  }
+  .contact_div
+  {
+    gap: 20px;
+  }
+  .container_padding{
+    padding: 0px;
+  }
+  .home_banner_images {
+    
+    height: 210px;
+    background-position: bottom;
+}
+}
+@media (max-width:886px) {
+  .contact_container
+  {
+    padding-bottom: 50px;
+  }
+  
+}

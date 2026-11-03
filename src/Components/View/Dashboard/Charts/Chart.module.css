@@ -1,0 +1,56 @@
+@font-face {
+  font-family: "Nunito-bold-700";
+  src: url(../../../../Assets/Fonts/Nunito-Bold.ttf);
+}
+@font-face {
+  font-family: "Nunito-semibold-600";
+  src: url(../../../../Assets/Fonts/Nunito-SemiBold.ttf);
+}
+@font-face {
+  font-family: "Nunito-regular-400";
+  src: url(../../../../Assets/Fonts/Nunito-Regular.ttf);
+}
+
+.chartbackground {
+  background-color: white;
+  margin-bottom: 18px;
+  padding: 10px;
+  border-radius: 17px;
+}
+.chartdivflex {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-flow: wrap;
+  margin-bottom: 20px;
+}
+.date_div {
+  display: flex;
+  flex-flow: wrap;
+  gap: 10px;
+  height: 76px;
+}
+.submitbuttom {
+  background: #1f78a4;
+  border: 1px solid #1f78a4;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 8%);
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 6px 10px;
+  margin: 0;
+  text-transform: capitalize;
+}
+.date_chart {
+  font-size: 18px;
+  font-weight: 900;
+  font-family: "Nunito-bold-700";
+}
+.chart_bottom {
+  margin-bottom: 88px;
+}
+.chart_to_date_error_width {
+  width: 239px;
+}

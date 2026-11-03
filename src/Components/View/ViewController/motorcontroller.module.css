@@ -1,0 +1,788 @@
+@font-face {
+  font-family: "Nunito-bold-700";
+  src: url(../../../Assets/Fonts/Nunito-Bold.ttf);
+}
+@font-face {
+  font-family: "Nunito-semibold-600";
+  src: url(../../../Assets/Fonts/Nunito-SemiBold.ttf);
+}
+@font-face {
+  font-family: "Nunito-regular-400";
+  src: url(../../../Assets/Fonts/Nunito-Regular.ttf);
+}
+
+.total_motors {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.motor_on_bg {
+  background: snow;
+}
+/* A genuine fixed height (not min-height) — every card must come out
+   the exact same size, whether or not it has a merged device's one-line
+   summary ("tank-1" etc.). min-height let cards size to their own
+   content, which is exactly what "same size regardless of content"
+   rules out — a card without that extra line ends up shorter than one
+   with it. overflow:hidden is a safety net in case a future addition
+   doesn't fit; content here is short enough that it never actually
+   clips at this height. */
+.motor_card_height {
+  height: 460px;
+  overflow: hidden;
+}
+.motor_on_pad {
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  gap: 28px;
+}
+.motor_id_status_row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: -18px;
+}
+.motor_id_status_row p {
+  margin: 0 !important;
+  font-size: 12px !important;
+}
+.motor_status_bottom {
+  text-align: center;
+  width: 100%;
+  margin: 0 !important;
+  font-size: 15px !important;
+}
+.motor_volt_div_flex {
+  display: grid;
+  /* minmax(0, 1fr) — plain 1fr still respects each column's content's
+     natural min-width (grid items default to min-width: auto), so the
+     3rd (B) column overflowed past the card's right edge whenever the
+     available width shrank (e.g. sidebar expanded) instead of shrinking
+     with the other two. minmax(0, ...) lets it actually shrink. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.motorviewtowerpercentage {
+  font-size: 12px;
+  font-family: "Nunito-bold-700";
+  color: #1c0505;
+  margin: auto !important;
+  left: 107px;
+  right: 0;
+  position: absolute;
+  top: 29px;
+  width: 100%;
+  max-width: 72px;
+}
+.update_text {
+  text-align: left;
+  margin-bottom: 14px;
+  margin: 0;
+}
+.motor_volt_sub_div {
+  padding: 10px;
+}
+.motor_volt_div_flex span {
+  font-family: "Nunito-regular-400";
+  border-radius: 50px;
+}
+@media (max-width: 1455px) {
+  .total_motors {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 1000px) {
+  .total_motors {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.updatetank_text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.updatetank_text img:nth-child(1) {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.levels {
+  background: #f98e03;
+  border-radius: 21.8355px;
+  padding: 4px 7px;
+  margin-bottom: 0px !important;
+  font-size: 15px;
+  color: white;
+  border: none;
+  outline: none;
+  box-shadow: 1px 2px 2px grey;
+  text-align: left;
+  display: block;
+  white-space: nowrap;
+  width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tank_level_details > img:nth-child(4) {
+  top: 4px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.flowgif {
+  width: 140px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  /* top: 244px; */
+}
+
+.water_tank {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  bottom: -50px;
+  min-height: 136px;
+  height: 131px;
+}
+.offwater_tank {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  bottom: 61px;
+  min-height: 136px;
+  height: 131px;
+}
+.off_listvalveimg {
+  height: 201px;
+  position: absolute;
+  right: 0;
+  left: 10px;
+  top: 156px;
+  bottom: 0;
+  margin: auto;
+  margin-right: auto;
+}
+.tankstyle {
+  position: relative;
+  /* min-height: 185px; */
+  background-size: 200px;
+  border-top: none;
+  min-width: 200px;
+}
+.tankstyle p.waterper {
+  position: absolute;
+  left: 70px;
+  margin-left: auto;
+  bottom: 45px;
+  margin-bottom: auto;
+  z-index: 9;
+  font-size: 20px;
+}
+/* Dedicated, properly CSS-Modules-scoped classes for the tank % label in
+   Controlardetails.js's merge-tank view and Multi-tab tank list — NOT
+   the raw ".waterper"/".new_per"/".multidevice_Persentage_size" global
+   classNames, which collide with unrelated !important rules in
+   ViewController.modules.css (a plain, unscoped stylesheet imported
+   app-wide) and silently ignore any top/position set alongside them.
+   Same top/right positioning as the already-fixed ControllerDevice.js
+   grid card. */
+.merge_tank_percentage_label {
+  position: absolute;
+  top: 27%;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+.multi_tank_percentage_label {
+  position: absolute;
+  top: 27%;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+.tankstyle img {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 125px;
+}
+.tank_level_details > img:nth-child(4) {
+  top: 4px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.motor_valve_div_flex {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+  /* align-items: baseline; */
+}
+.motor_valve_div_flex p {
+  margin: 0;
+  font-family: "Nunito-bold-700";
+  text-transform: capitalize;
+}
+.motor_valve_div_flex span {
+  font-family: "Nunito-regular-400";
+}
+.towerpercentage {
+  font-size: 12px;
+  font-family: "Nunito-bold-700";
+  color: #1c0505;
+  margin: auto;
+  left: 92px;
+  right: 0;
+  position: absolute;
+  top: 24px;
+  width: 100%;
+  max-width: 57px;
+}
+.motor_head_sub_div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.total_device {
+  display: grid;
+  gap: 20px;
+  /* Reacts to the actual space left after the sidebar's margin-left
+     (250px expanded / 75px collapsed), unlike fixed-count columns with
+     viewport-width breakpoints, which don't know about the sidebar and
+     squeezed cards whenever it was expanded. */
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
+/* Scoped to ControllerDevice.js's Motor tab grid only — .total_device
+   (above) is shared with ViewAdminDevice.js's single-card View Device
+   page, where a lone card is SUPPOSED to stretch full width (there's
+   nothing else in that grid to share the row with, by design). Motor
+   tab's card list is the opposite: it's a filterable multi-card list
+   where a filtered-down single result should stay a normal card size,
+   not stretch — auto-fill (vs auto-fit) keeps unused columns in place
+   instead of collapsing them and letting 1fr hand their space to
+   whatever card remains. */
+.motor_list_grid {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)) !important;
+}
+.device_details_view {
+  display: flex;
+  flex-direction: column;
+  gap: 7px 0;
+  position: relative;
+}
+.tank_level {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+.devicetowerpercentage {
+  font-size: 12px;
+  font-family: "Nunito-bold-700";
+  color: #1c0505;
+  margin: auto !important;
+  left: 107px;
+  right: 0;
+  position: absolute;
+  top: 11px;
+  width: 100%;
+  max-width: 72px;
+}
+.edit_date {
+  /* width: calc(50% - 15px); */
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 9px;
+}
+.device_name {
+  border-radius: 30.8355px;
+  padding: 4px 13px;
+  margin-bottom: 0px !important;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  font-family: "Nunito";
+  text-align: center;
+  color: white;
+  box-shadow: 1px 2px 2px grey;
+  display: block;
+  white-space: nowrap;
+  /* max-width (not a fixed width) + min-width:0 lets this shrink below
+     its own text's natural size when the card gets narrower (sidebar
+     open) instead of overflowing into the tower icon next to it — the
+     text still ellipsizes instead of overlapping. */
+  max-width: 11rem;
+  min-width: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.device_name_tank_col {
+  background: #f55f07;
+}
+.device_name_flow_col {
+  background: #0b898f;
+}
+.device_name_valve_col {
+  background: #cf3c6a;
+}
+.device_name_input {
+  background-color: #99d6f1;
+  border-radius: 30.8355px;
+  border: 1px solid #80808040;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 4px 13px;
+  outline: none;
+  text-align: center;
+  font-family: "Nunitos";
+  width: 11rem;
+}
+.devicetowerpercentagelight {
+  font-size: 12px;
+  font-family: "Nunito-bold-700";
+  color: #1c0505;
+  margin: auto !important;
+  left: 110px;
+  right: 0;
+  position: absolute;
+  top: 23px;
+  width: 100%;
+  max-width: 72px;
+}
+
+.light_device_edit_off {
+  display: flex;
+  justify-content: space-between;
+  width: 5rem;
+  align-items: center;
+}
+.device_name_light_col {
+  background: #cf3c6a;
+}
+.margin_zero p {
+  margin: 0 !important;
+}
+.motor_name {
+  border: none;
+  text-align: center;
+  margin-bottom: 0 !important;
+  background: #d949b7;
+  border-radius: 30.8355px;
+  padding: 7px 18px 4px;
+  font-size: 17px;
+  text-align: center;
+  color: white;
+  box-shadow: 1px 2px 2px gray;
+  width: 14rem;
+  box-shadow: 1px 2px 2px grey;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Nunito-bold-700";
+}
+.motor_name_input {
+  background-color: #99d6f1;
+  border-radius: 30.8355px;
+  border: 1px solid #80808040;
+  font-size: 15px;
+  padding: 7px 18px 4px;
+  outline: none;
+  text-align: center;
+  font-family: "Nunitos";
+  width: 14rem;
+}
+.page_head {
+  font-size: 26px;
+  font-weight: 600;
+  font-family: "Nunito-semibold-600";
+  font-size: 27px;
+  color: cyan;
+}
+.user_details {
+  font-size: 26px;
+  font-weight: 600;
+  color: cyan;
+  text-transform: capitalize;
+  font-family: "Nunito-semibold-600";
+}
+.all_details_div_bg tbody {
+  color: #000000;
+  text-transform: capitalize;
+  font-family: "Nunito-semibold-600";
+}
+.all_details_div_bg {
+  background: #fdfdfd;
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 15px;
+  margin-top: 0px;
+}
+.settings_view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px 0px;
+}
+.total-settings {
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+}
+.settings_view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px 0px;
+  height: -moz-fit-content;
+  position: relative;
+}
+.more_settings_view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px 0px;
+  overflow: auto;
+  position: relative;
+  margin-bottom: 80px;
+}
+.user_service_details {
+  padding: 13px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.TimeSettingContainer {
+  padding: 10px 10px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-flow: wrap;
+}
+.dayItemBox {
+  /* display: flex; */
+  flex-direction: row;
+  gap: 5px;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+}
+.errorText {
+  margin-bottom: 0px;
+  color: red;
+  font-size: 14px;
+  padding-top: 6px;
+  font-family: "Nunito-semibold-600";
+}
+.timeSettingText {
+  margin-bottom: 0px;
+  color: #16404d;
+  font-family: "Nunito-semibold-600";
+  margin-top: 8px;
+}
+.RemoveImage {
+  width: 30px;
+  height: 30px;
+}
+.timeSettingAddButton {
+  background: green;
+  border: 1px solid #1f78a4;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 8%);
+  border-radius: 5px;
+  color: white;
+  text-transform: capitalize;
+  cursor: pointer;
+  width: 60px;
+  height: 35px;
+}
+.ValveTimeFlex {
+  flex-direction: column;
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  gap: 8px;
+}
+.timeInputBox .rc-time-picker-input {
+  height: 45px !important;
+}
+@media (max-width: 1700px) {
+  .user_service_details {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 1300px) {
+  .user_service_details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 864px) {
+  .user_service_details {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.service_bg {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 10px 12px 12px -6.06631px rgb(0 11 9 / 27%);
+  border-radius: 16.5px;
+  padding: 10px;
+}
+.fault_div_flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 15px;
+}
+.controller_fault {
+  color: #64748b;
+  font-family: "Nunito-regular-400";
+  /* text-transform: capitalize; */
+  margin-bottom: 0 !important;
+}
+
+.user_name {
+  font-family: "Nunito-bold-700";
+  /* text-transform: capitalize; */
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 6px;
+  max-width: 209px;
+  word-break: break-all;
+}
+.service_count {
+  color: #000000;
+  font-family: "Nunito-semibold-600";
+  /* text-transform: capitalize; */
+  width: 100%;
+  max-width: 343px;
+  word-break: break-all;
+  margin: 0;
+}
+.settingtime {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1456px) {
+  .settingtime {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 1088px) {
+  .settingtime {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 746px) {
+  .settingtime {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.timesettings {
+  background: white;
+  box-shadow: 1px 2px 5px 3px #80808047;
+  padding: 13px;
+  border-radius: 7px;
+}
+.timing_width {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.valve_time_dele {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settingflex {
+  display: flex;
+  align-items: center;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+.notification {
+  background-color: #99d6f1;
+  border-radius: 30.8355px;
+  border: 1px solid #80808040;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 2px 8px;
+  outline: none;
+  text-align: center;
+  font-family: "Nunitos";
+}
+.history_detail {
+  padding: 30px 18px 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.history_detail_nodata_found {
+  padding: 30px 18px 30px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+@media (max-width: 1680px) {
+  .history_detail {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 1278px) {
+  .history_detail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 852px) {
+  .history_detail {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.subdetail {
+  background: white;
+  box-shadow: 0px 3px 6px 3px #8080803d;
+  border-radius: 6px;
+  padding: 9px 11px;
+}
+.daysButton {
+  width: 60px;
+  color: #000000;
+  font-family: "Nunito-bold-700";
+  background: #fff;
+  padding: 10px 16px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  /* width: 50px;
+  height: 50px; */
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background: transparent;
+  color: #444;
+  /* box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px; */
+}
+.daysButton:hover {
+  background: #f0f0f0;
+}
+.timeTabledata {
+  max-width: 250px;
+  width: 200px;
+}
+.WeeklyDaysListStyle {
+  flex-direction: column;
+  display: flex;
+  gap: 20px;
+  padding: 10px 10px;
+  overflow: auto;
+}
+.labelStyle {
+  margin-bottom: 0px;
+  font-family: "Nunito-semibold-600";
+}
+.TextStyle {
+  margin-bottom: 0px;
+  font-family: "Nunito-regular-400";
+}
+.timeLineStyle {
+  flex-direction: row;
+  display: flex;
+  gap: 30px;
+}
+.deviceTimeList {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  row-gap: 10px;
+}
+@media (max-width: 1400px) {
+  .timeLineStyle {
+    gap: 15px 10px;
+  }
+  .deviceTimeList {
+    column-gap: 10px;
+  }
+  .daysButton {
+    width: 50px;
+    padding: 10px;
+  }
+}
+@media (max-width: 1100px) {
+  .daysButton {
+    width: 43px;
+    padding: 7px 0px;
+  }
+}
+
+.controlerBox {
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+  gap: 10px;
+}
+
+.deviceStyleContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+.DeviceLineStyle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: row;
+  flex-flow: wrap;
+  gap: 10px;
+}
+
+.lineTextStyle {
+  margin-bottom: 0px;
+  /* font-family: ; */
+}
+.editFiledContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.RowLineFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

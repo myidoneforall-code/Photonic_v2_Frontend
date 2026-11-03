@@ -1,0 +1,467 @@
+@font-face {
+  font-family: "Nunito-bold-700";
+  src: url(../../../Assets/Fonts/Nunito-Bold.ttf);
+}
+@font-face {
+  font-family: "Nunito-semibold-600";
+  src: url(../../../Assets/Fonts/Nunito-SemiBold.ttf);
+}
+@font-face {
+  font-family: "Nunito-regular-400";
+  src: url(../../../Assets/Fonts/Nunito-Regular.ttf);
+}
+.production_con_right_detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* z-index: 99999; */
+  align-items: baseline;
+}
+.production_con_status_flex {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.production_con_status_flex p {
+  margin: 0;
+  font-size: 22px;
+}
+.production_finish_btn {
+  background: cornflowerblue;
+  border-radius: 5.8355px;
+  border: 1px solid #80808040;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 3px 8px;
+  outline: none;
+  /* margin-left: 12px; */
+  width: fit-content;
+  color: white;
+  text-align: center;
+  font-family: "Nunito";
+}
+.production_change_status_btn {
+  max-width: fit-content;
+  background: #5f6062;
+  border-radius: 22px;
+  border: none;
+  color: white;
+  padding: 4px 9px;
+  font-size: 16px;
+}
+.production_device_status_flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: wrap;
+}
+.production_device_status_flex p {
+  margin: 0;
+  font-size: 22px;
+}
+.production_tank_style {
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.production_ID {
+  margin: 0 !important;
+}
+.production_spinner_div_style {
+  display: flex;
+  width: 100%;
+  max-width: 377px;
+  justify-content: space-between;
+}
+.production_spinner {
+  height: 20px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+  cursor: pointer;
+}
+.production_flow_status {
+  margin-top: 96px;
+}
+.production_flow_gif {
+  position: absolute;
+  left: 0px;
+  right: 0;
+  margin: auto;
+  width: 150px;
+  top: 158px;
+  /* max-width: 398px; */
+  bottom: 8px;
+}
+.production_device_cgangestatus_btn {
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  background: #5f6062;
+  border-radius: 22px;
+  border: none;
+  color: white;
+  padding: 4px 9px;
+  font-size: 15px;
+}
+.production_device_finish_btn {
+  background: cornflowerblue;
+  border-radius: 5.8355px;
+  border: 1px solid #80808040;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 3px 8px;
+  outline: none;
+  /* margin-left: 12px; */
+  width: fit-content;
+  color: white;
+  text-align: center;
+  font-family: "Nunito";
+}
+.producton_flow_div {
+  width: 710px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px 0px;
+  position: relative;
+}
+
+.production_flow_spinner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 18px;
+  width: 100%;
+  justify-content: space-between;
+  max-width: 263px;
+  cursor: pointer;
+}
+.production_tank_tower {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 18px;
+  width: 100%;
+  justify-content: space-between;
+  max-width: 267px;
+}
+.production_tank_top_div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* position: relative; */
+  margin-bottom: 4px;
+}
+.production_tower {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.production_valve_spinner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 18px;
+  width: 100%;
+  justify-content: space-between;
+  max-width: 245px;
+  cursor: pointer;
+}
+.production_settings_btn {
+  background: #5f6062;
+  border-radius: 22px;
+  border: none;
+  padding: 3px 0px;
+  color: white;
+  position: relative;
+  max-width: 111px;
+  width: 100%;
+}
+.production_valve {
+  width: 229px;
+}
+.production_light_div {
+  text-align: end;
+}
+.production_status_off {
+  color: red;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.production_status_on {
+  color: #0abd0a;
+  text-transform: uppercase;
+  font-family: "Nunito-bold-700";
+}
+.production_status_inactive {
+  color: grey;
+  text-transform: uppercase;
+  font-family: "Nunito-bold-700";
+}
+.production_status_deleted {
+  color: red;
+  text-transform: uppercase;
+  font-family: "Nunito-bold-700";
+}
+.production_status_waiting {
+  color: orange;
+  text-transform: uppercase;
+  font-family: "Nunito-bold-700";
+}
+.production_flow_tower {
+  width: 30px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 19px;
+  position: absolute;
+}
+.production_tower_percentage {
+  font-size: 15px;
+  font-family: "Nunito-bold-700";
+}
+.production_tank_spinner {
+  margin: auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+  cursor: pointer;
+}
+.production_tank_tower_position {
+  width: 30px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 28px;
+}
+.settings_btn {
+  background: #5f6062;
+  border-radius: 22px;
+  border: none;
+  padding: 3px 17px;
+  color: white;
+  position: relative;
+  max-width: 102px;
+  width: 100%;
+  /* float: right; */
+}
+.production_history_flex {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 0px;
+}
+@media (max-width: 1780px) {
+  .production_history_flex {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 1404px) {
+  .production_history_flex {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 1016px) {
+  .production_history_flex {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.production_history_div {
+  background: white;
+  box-shadow: 0px 3px 6px 3px #8080803d;
+  border-radius: 6px;
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px 0px;
+}
+.production_con_name {
+  inline-size: 176px;
+  word-break: break-word;
+}
+.empty_tower_valve {
+  width: 30px;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.device_details_view {
+  width: 100%;
+  max-width: 50% !important;
+  box-shadow: 0px 3px 6px 3px #8080803d;
+  display: flex;
+  flex-direction: column;
+  gap: 7px 0px;
+  position: relative;
+}
+.device_details_view p {
+  margin-bottom: 0px !important;
+}
+@media (max-width: 1168px) {
+  .device_details_view {
+    max-width: 100% !important;
+  }
+}
+.valve_perentage {
+  font-size: 12px;
+  font-family: "Nunito-bold-700";
+  color: #1c0505;
+  margin: auto !important;
+  left: 111px;
+  right: 0;
+  position: absolute;
+  top: 17px;
+  width: 100%;
+  max-width: 72px;
+}
+.production_tank_perentage {
+  font-size: 12px;
+  font-family: "Nunito-bold-700";
+  color: #1c0505;
+  margin: auto !important;
+  left: 111px;
+  right: 0;
+  position: absolute;
+  top: 32px;
+  width: 100%;
+  max-width: 72px;
+}
+
+.production_flow_percentage {
+  font-size: 12px;
+  font-family: "Nunito-bold-700";
+  color: #1c0505;
+  margin: auto !important;
+  left: 111px;
+  right: 0;
+  position: absolute;
+  top: 23px;
+  width: 100%;
+  max-width: 72px;
+}
+.details_tank {
+  position: relative;
+}
+/* Dedicated, properly CSS-Modules-scoped classes for the tank % label —
+   NOT ".waterper"/".new_per" (those collide with unrelated global
+   !important rules in ViewController.modules.css, which is imported
+   as a plain unscoped stylesheet elsewhere and so applies app-wide).
+   left:45%/top:29% is tuned for this water-tower GIF, whose spiral
+   staircase on the right side pulls the cylinder's own visual center
+   left of the full image's midpoint. */
+.tank_percentage_label {
+  position: absolute;
+  top: 29%;
+  left: 45%;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+.multidevice_tank_percentage_label {
+  position: absolute;
+  top: 29%;
+  left: 45%;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+  font-size: 17px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+.settings_btn {
+  background: #5f6062;
+  border-radius: 22px;
+  border: none;
+  padding: 3px 17px;
+  color: white;
+  position: relative;
+  max-width: 102px;
+  width: 100%;
+  float: left;
+}
+.light_tower_percentage {
+  font-size: 12px;
+  font-family: "Nunito-bold-700";
+  color: #1c0505;
+  margin: auto !important;
+  left: 114px;
+  right: 0;
+  position: absolute;
+  top: 22px;
+  width: 100%;
+  max-width: 72px;
+}
+.amcContainer {
+  padding: 15px;
+  box-shadow: 0px 3px 6px 3px #8080803d;
+  display: flex;
+  flex-direction: column;
+  gap: 7px 0px;
+  position: relative;
+  border-radius: 10px;
+}
+.amcContainer h3 {
+  font-family: "Nunito-bold-700";
+  font-size: 18px;
+}
+.acmDataBlock p > span:nth-child(1) {
+  font-weight: 600;
+  font-family: "Nunito-regular-400" !important;
+  font-size: 15px;
+  text-transform: capitalize;
+  color: #000000c7;
+  min-width: 130px;
+}
+.acmDataBlock p > span:nth-child(2) {
+  color: rgba(4, 17, 23, 0.6);
+  font-family: "Nunito-regular-400" !important;
+  font-weight: 500;
+  font-size: 13px;
+  margin-bottom: 0px !important;
+  border: none;
+  outline: none;
+  /* word-break: break-all; */
+}
+
+.acmDataBlock p {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 5px;
+}
+
+.activestatusTD {
+  background-color: #218f21;
+  padding: 3px 10px;
+  border-radius: 15px;
+  text-align: center;
+  font-family: "Nunito-semibold-600";
+  color: #fff !important;
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+.statusTD {
+  background-color: #ed4848;
+  padding: 3px 10px;
+  border-radius: 15px;
+  text-align: center;
+  font-family: "Nunito-semibold-600";
+  color: #fff !important;
+  margin-bottom: 0px;
+  font-size: 13px;
+}
