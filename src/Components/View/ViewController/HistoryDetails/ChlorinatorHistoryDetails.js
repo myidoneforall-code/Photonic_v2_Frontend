@@ -35,6 +35,16 @@ export const pumpText = (value) => {
   return pump === 1 ? "Pump 1" : pump === 2 ? "Pump 2" : "Off";
 };
 
+// The chlorinator sends pH (R2) and chlorine (R4) multiplied by 100, so 738 is
+// shown as 7.38.
+export const reading100 = (value) => {
+  const parsed = parseFloat(value);
+  if (!hasValue(value) || Number.isNaN(parsed)) {
+    return value;
+  }
+  return Number((parsed / 100).toFixed(2));
+};
+
 // History of a chlorinator: pH, TDS and chlorine readings with the state of the
 // dosing switch, dosing pump, agitator, float and pressure switch.
 export default function Chlorinatorhistorydetails({
@@ -131,7 +141,7 @@ export default function Chlorinatorhistorydetails({
                 <div className="status-div-flex">
                   <p>
                     <span className="allsubhead">pH&nbsp;:&nbsp;</span>
-                    <span>{hasValue(row?.ph) ? row.ph : "-"}</span>
+                    <span>{hasValue(row?.ph) ? reading100(row.ph) : "-"}</span>
                   </p>
                   <p>
                     <span className="allsubhead">TDS&nbsp;:&nbsp;</span>
@@ -139,7 +149,7 @@ export default function Chlorinatorhistorydetails({
                   </p>
                   <p>
                     <span className="allsubhead">chlorine&nbsp;:&nbsp;</span>
-                    <span>{hasValue(row?.chlorine) ? row.chlorine : "-"}</span>
+                    <span>{hasValue(row?.chlorine) ? reading100(row.chlorine) : "-"}</span>
                   </p>
                 </div>
                 <div className="status-div-flex">

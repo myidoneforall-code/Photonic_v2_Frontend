@@ -1,5 +1,9 @@
 import chlorineImage from "../../../Assets/image/chlorine.png";
-import { onOffText, pumpText } from "./HistoryDetails/ChlorinatorHistoryDetails";
+import {
+  onOffText,
+  pumpText,
+  reading100,
+} from "./HistoryDetails/ChlorinatorHistoryDetails";
 
 const hasValue = (value) =>
   value !== null && value !== undefined && value !== "";
@@ -63,8 +67,8 @@ export default function ChlorinatorCard({ controllerdata }) {
               style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}
             >
               {cell("TDS", show(unit?.tds), "#7c5cfa")}
-              {cell("pH", show(unit?.ph), "#1677f2")}
-              {cell("Chlorine", show(unit?.chlorine), "#f59e0b")}
+              {cell("pH", show(reading100(unit?.ph)), "#1677f2")}
+              {cell("Chlorine", show(reading100(unit?.chlorine)), "#f59e0b")}
               {cell("Dosing switch", onOffText(unit?.dosing_switch))}
               {cell("Dosing pump", pumpText(unit?.dosing_pump))}
               {cell("Agitator", onOffText(unit?.agitator))}

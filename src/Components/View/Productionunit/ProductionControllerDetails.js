@@ -42,6 +42,7 @@ import { ExportedImages } from "../../../Utilities/ImageExport";
 import {
   onOffText,
   pumpText,
+  reading100,
 } from "../ViewController/HistoryDetails/ChlorinatorHistoryDetails";
 import { MultiDeviceList } from "../../../Utilities/Constants";
 import { Checkbox, Col, Row } from "antd";
@@ -1611,11 +1612,11 @@ export default function ProductionControllerDetails() {
                 </p>
                 <p className="tank-usage">
                   <span className="tank-header">pH - </span>
-                  <span className="tank-date">{data?.ph}</span>
+                  <span className="tank-date">{reading100(data?.ph)}</span>
                 </p>
                 <p className="tank-usage">
                   <span className="tank-header">Chlorine - </span>
-                  <span className="tank-date">{data?.chlorine}</span>
+                  <span className="tank-date">{reading100(data?.chlorine)}</span>
                 </p>
                 <p className="tank-usage">
                   <span className="tank-header">Dosing switch - </span>

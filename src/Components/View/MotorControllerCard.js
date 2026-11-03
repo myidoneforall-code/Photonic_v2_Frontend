@@ -12,7 +12,38 @@ import { FindAvilable } from "../../Utilities/Methods";
 import {
   onOffText,
   pumpText,
+  reading100,
 } from "./ViewController/HistoryDetails/ChlorinatorHistoryDetails";
+
+// The ruled boxes of the chlorinator card: a table that is only as wide as its
+// "label : value" rows, with a line between the rows.
+const INFO_BOX = {
+  flex: "0 0 auto",
+  border: "1px solid #9DBFDC",
+  borderRadius: "12px",
+  padding: "0 10px",
+};
+
+const InfoTable = ({ rows }) => (
+  <div style={INFO_BOX}>
+    <table style={{ borderCollapse: "collapse", fontSize: "13px" }}>
+      <tbody>
+        {rows.map(([label, value], i) => (
+          <tr
+            key={label}
+            style={{ borderBottom: i === rows.length - 1 ? "none" : "1px solid #C9DDEE" }}
+          >
+            <td style={{ fontWeight: 700, color: "#1B2A41", padding: "4px 0", whiteSpace: "nowrap" }}>
+              {label}
+            </td>
+            <td style={{ color: "#1677C8", padding: "4px 6px" }}>:</td>
+            <td style={{ color: "#5F6B7A", padding: "4px 0", whiteSpace: "nowrap" }}>{value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
 
 // m1/m2/m3 (volts/amps/PF) arrive as zero-padded device strings
 // ("00.0", "0.0", "1.00") — Number() strips that down to a plain "0" /
@@ -138,7 +169,36 @@ export default function MotorControllerCard({
               </>
             ) : null}
 
+
             <div className="mobile-1-flex">
+              {!motoron?.controller_code && motoron?.chlorinator?.length > 0 ? (
+                <>
+                  {isloading && index === motorindex ? (
+                    <img
+                      src={ExportedImages.GREEN_SPINNER_GIF}
+                      alt="loading"
+                      className="lightwhitespinner"
+                      style={{ top: "15px", height: "20px" }}
+                    />
+                  ) : (
+                    <img
+                      src={ExportedImages.SPINNER_ICON}
+                      alt="rotating-arrow"
+                      className="lightwhitespinner"
+                      style={{ top: "15px" }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        loadingspinner(motoron.chlorinator[0]?.device_id, motoron?.access_type, 6);
+                        setindex(index);
+                      }}
+                    />
+                  )}
+                  <p className="tank-date" style={{ margin: 0, whiteSpace: "nowrap" }}>
+                    {motoron.chlorinator[0]?.device_time}
+                  </p>
+                </>
+              ) : null}
+
               {motoron.operated_by && (
                 <Tooltip title={motoron?.operated_by || ""}>
                   <p className={commonstyle.createdby}>
@@ -535,79 +595,43 @@ export default function MotorControllerCard({
                           <div className={motorstyle.updatetank_text}>
                             <Tooltip title={datas?.device_name || ""}>
                               <p className={motorstyle.levels}>
-                                {datas?.device_name || "Chlorinator"}
+                                Chlorinator
                               </p>
                             </Tooltip>
-                            <p className={motorstyle.tank_level_details}>
-                              <span className="tank-header">TDS-</span>
-                              <span className="tank-date">{datas?.tds ?? "-"}</span>{" "}
-                            </p>
                           </div>
-                          {isloading && index === motorindex ? (
-                            <img
-                              src={ExportedImages.GREEN_SPINNER_GIF}
-                              alt="loading"
-                              className="whitespinner"
-                              style={{ height: "23px" }}
-                            />
-                          ) : (
-                            <img
-                              src={ExportedImages.SPINNER_ICON}
-                              alt="rotating-arrow"
-                              className="whitespinner spinnerOne"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                loadingspinner(datas?.device_id, motoron?.access_type, 6);
-                                setindex(index);
-                              }}
-                            />
-                          )}
-                          <p className="tank-date timeOnly">{datas?.device_time}</p>
                         </div>
 
-                        <div className="tank-limit">
-                          <div className={motorstyle.updatetank_text}>
-                            <p className="tank-header">
-                              ID -{" "}
-                              <span className="tank-date">{datas?.device_code}</span>{" "}
-                            </p>
-                            <p className="tank-header">
-                              pH <span className="tank-date">- {datas?.ph ?? "-"}</span>
-                            </p>
-                            <p className="tank-header">
-                              chlorine{" "}
-                              <span className="tank-date">- {datas?.chlorine ?? "-"}</span>
-                            </p>
-                          </div>
-                          <div>
-                            <img
-                              src={ExportedImages.Chlorinator_Image}
-                              alt="chlorinator"
-                              className={motorstyle.flowgif}
-                            />
-                          </div>
-                          <div className={motorstyle.updatetank_text}>
-                            <p className="tank-header">
-                              dosing switch{" "}
-                              <span className="tank-date">- {onOffText(datas?.dosing_switch)}</span>
-                            </p>
-                            <p className="tank-header">
-                              dosing pump{" "}
-                              <span className="tank-date">- {pumpText(datas?.dosing_pump)}</span>
-                            </p>
-                            <p className="tank-header">
-                              agitator{" "}
-                              <span className="tank-date">- {onOffText(datas?.agitator)}</span>
-                            </p>
-                            <p className="tank-header">
-                              float{" "}
-                              <span className="tank-date">- {onOffText(datas?.float_status)}</span>
-                            </p>
-                            <p className="tank-header">
-                              pressure{" "}
-                              <span className="tank-date">- {onOffText(datas?.pressure_switch)}</span>
-                            </p>
-                          </div>
+                        <div className="tank-limit" style={{ alignItems: "center", position: "relative" }}>
+                          <InfoTable
+                            rows={[
+                              ["ID", datas?.device_code],
+                              ["TDS", datas?.tds ?? "-"],
+                              ["pH", reading100(datas?.ph) ?? "-"],
+                              ["chlorine", reading100(datas?.chlorine) ?? "-"],
+                            ]}
+                          />
+                          <img
+                            src={ExportedImages.Chlorinator_Image}
+                            alt="chlorinator"
+                            className={motorstyle.flowgif}
+                            style={{
+                              width: "165px",
+                              left: "50%",
+                              right: "auto",
+                              top: "50%",
+                              margin: 0,
+                              transform: "translate(-50%, -50%)",
+                            }}
+                          />
+                          <InfoTable
+                            rows={[
+                              ["dosing switch", onOffText(datas?.dosing_switch)],
+                              ["dosing pump", pumpText(datas?.dosing_pump)],
+                              ["agitator", onOffText(datas?.agitator)],
+                              ["float", onOffText(datas?.float_status)],
+                              ["pressure", onOffText(datas?.pressure_switch)],
+                            ]}
+                          />
                         </div>
                       </React.Fragment>
                     );
