@@ -43,6 +43,8 @@ import {
   onOffText,
   pumpText,
   reading100,
+  FlowStatus,
+  TankLight,
 } from "../ViewController/HistoryDetails/ChlorinatorHistoryDetails";
 import { MultiDeviceList } from "../../../Utilities/Constants";
 import { Checkbox, Col, Row } from "antd";
@@ -1653,12 +1655,12 @@ export default function ProductionControllerDetails() {
                   <span className="tank-date">{onOffText(data?.agitator)}</span>
                 </p>
                 <p className="tank-usage">
-                  <span className="tank-header">Float - </span>
-                  <span className="tank-date">{onOffText(data?.float_status)}</span>
+                  <span className="tank-header">Tank - </span>
+                  <span className="tank-date"><TankLight value={data?.float_status} /></span>
                 </p>
                 <p className="tank-usage">
-                  <span className="tank-header">Pressure - </span>
-                  <span className="tank-date">{onOffText(data?.pressure_switch)}</span>
+                  <span className="tank-header">Flow - </span>
+                  <span className="tank-date"><FlowStatus value={data?.pressure_switch} /></span>
                 </p>
                 <p>
                   <span className="tank-header">Hardware Version - </span>

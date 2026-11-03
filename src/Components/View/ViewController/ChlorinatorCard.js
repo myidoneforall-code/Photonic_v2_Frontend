@@ -3,6 +3,8 @@ import {
   onOffText,
   pumpText,
   reading100,
+  FlowStatus,
+  TankLight,
 } from "./HistoryDetails/ChlorinatorHistoryDetails";
 
 const hasValue = (value) =>
@@ -72,8 +74,8 @@ export default function ChlorinatorCard({ controllerdata }) {
               {cell("Dosing switch", onOffText(unit?.dosing_switch))}
               {cell("Dosing pump", pumpText(unit?.dosing_pump))}
               {cell("Agitator", onOffText(unit?.agitator))}
-              {cell("Float", onOffText(unit?.float_status))}
-              {cell("Pressure", onOffText(unit?.pressure_switch))}
+              {cell("Tank", <TankLight value={unit?.float_status} />)}
+              {cell("Flow", <FlowStatus value={unit?.pressure_switch} />)}
             </div>
           </div>
         </div>

@@ -13,6 +13,8 @@ import {
   onOffText,
   pumpText,
   reading100,
+  FlowStatus,
+  TankLight,
 } from "./ViewController/HistoryDetails/ChlorinatorHistoryDetails";
 
 // The ruled boxes of the chlorinator card: a table that is only as wide as its
@@ -628,8 +630,8 @@ export default function MotorControllerCard({
                               ["dosing switch", onOffText(datas?.dosing_switch)],
                               ["dosing pump", pumpText(datas?.dosing_pump)],
                               ["agitator", onOffText(datas?.agitator)],
-                              ["float", onOffText(datas?.float_status)],
-                              ["pressure", onOffText(datas?.pressure_switch)],
+                              ["tank", <TankLight value={datas?.float_status} />],
+                              ["flow", <FlowStatus value={datas?.pressure_switch} />],
                             ]}
                           />
                         </div>

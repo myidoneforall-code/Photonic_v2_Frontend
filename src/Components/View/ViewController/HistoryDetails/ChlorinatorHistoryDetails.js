@@ -27,6 +27,46 @@ const hasValue = (value) =>
 export const onOffText = (value) =>
   !hasValue(value) ? "-" : parseInt(value, 10) === 1 ? "On" : "Off";
 
+// The pressure switch: 1 means the water is flowing.
+export const flowText = (value) =>
+  !hasValue(value)
+    ? "-"
+    : parseInt(value, 10) === 1
+    ? "Flow happening"
+    : "Flow not happening";
+    
+    // The tank (float): a green light when it is on, a red light when it is off.
+    export const TankLight = ({ value }) => {
+      if (!hasValue(value)) return "-";
+      const on = parseInt(value, 10) === 1;
+      const color = on ? "#22A06B" : "#E5484D";
+      return (
+        <span title={on ? "On" : "Off"} style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+          <span
+            style={{
+              display: "inline-block",
+              width: "10px",
+              height: "10px",
+              borderRadius: "50%",
+              background: color,
+              boxShadow: `0 0 6px ${color}`,
+            }}
+          />
+        </span>
+      );
+    };
+
+    // The pressure switch as words: green when the water is flowing, red when it is not.
+    export const FlowStatus = ({ value }) => {
+      if (!hasValue(value)) return "-";
+      const on = parseInt(value, 10) === 1;
+      return (
+        <span style={{ color: on ? "#22A06B" : "#E5484D", fontWeight: 600 }}>
+          {on ? "Flow happening" : "Flow not happening"}
+        </span>
+      );
+    };
+
 export const pumpText = (value) => {
   if (!hasValue(value)) {
     return "-";
@@ -168,12 +208,12 @@ export default function Chlorinatorhistorydetails({
                 </div>
                 <div className="status-div-flex">
                   <p>
-                    <span className="allsubhead">float&nbsp;:&nbsp;</span>
-                    <span>{onOffText(row?.float_status)}</span>
+                    <span className="allsubhead">tank&nbsp;:&nbsp;</span>
+                    <span><TankLight value={row?.float_status} /></span>
                   </p>
                   <p>
-                    <span className="allsubhead">pressure&nbsp;:&nbsp;</span>
-                    <span>{onOffText(row?.pressure_switch)}</span>
+                    <span className="allsubhead">flow&nbsp;:&nbsp;</span>
+                    <span><FlowStatus value={row?.pressure_switch} /></span>
                   </p>
                 </div>
                 <p>
