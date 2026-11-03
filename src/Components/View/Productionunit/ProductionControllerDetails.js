@@ -569,7 +569,9 @@ export default function ProductionControllerDetails() {
       latitude: data.latitude,
       longitude: data.longitude,
       is_fixed: data?.is_fixed ? data?.is_fixed : 0,
-      status: 1,
+      // Saving positions must not mark the device Tested Ok: keep the status it
+      // has (Tested Ok is set from the status change screen).
+      status: data?.status ?? 0,
     };
     editdevice(Positions, data?.device_id)
       .then(({ data }) => {
@@ -3033,6 +3035,7 @@ export default function ProductionControllerDetails() {
                                           className={
                                             productionstyle.multidevice_tank_percentage_label
                                           }
+                                          style={{ left: "42px" }}
                                         >
                                           {tankItem?.tank_level !== null
                                             ? `${Number(tankItem?.tank_level)}%`
