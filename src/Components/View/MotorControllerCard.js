@@ -1,3 +1,4 @@
+import ChlorinatorPanels from "./ChlorinatorPanels";
 import React from "react";
 import { Tooltip } from "antd";
 import commonstyle from "../../Assets/css/CommonStyle.module.css";
@@ -9,43 +10,7 @@ import CommonSwitch from "../CommonComponents/CommonSwitch";
 import MultiDeviceComponent from "./MultiDeviceComponent";
 import BlurComponent from "./BlurComponent";
 import { FindAvilable } from "../../Utilities/Methods";
-import {
-  onOffText,
-  pumpText,
-  reading100,
-  FlowStatus,
-  TankLight,
-} from "./ViewController/HistoryDetails/ChlorinatorHistoryDetails";
 
-// The ruled boxes of the chlorinator card: a table that is only as wide as its
-// "label : value" rows, with a line between the rows.
-const INFO_BOX = {
-  flex: "0 0 auto",
-  border: "1px solid #9DBFDC",
-  borderRadius: "12px",
-  padding: "0 10px",
-};
-
-const InfoTable = ({ rows }) => (
-  <div style={INFO_BOX}>
-    <table style={{ borderCollapse: "collapse", fontSize: "13px" }}>
-      <tbody>
-        {rows.map(([label, value], i) => (
-          <tr
-            key={label}
-            style={{ borderBottom: i === rows.length - 1 ? "none" : "1px solid #C9DDEE" }}
-          >
-            <td style={{ fontWeight: 700, color: "#1B2A41", padding: "4px 0", whiteSpace: "nowrap" }}>
-              {label}
-            </td>
-            <td style={{ color: "#1677C8", padding: "4px 6px" }}>:</td>
-            <td style={{ color: "#5F6B7A", padding: "4px 0", whiteSpace: "nowrap" }}>{value}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-);
 
 // m1/m2/m3 (volts/amps/PF) arrive as zero-padded device strings
 // ("00.0", "0.0", "1.00") — Number() strips that down to a plain "0" /
@@ -90,6 +55,11 @@ export default function MotorControllerCard({
     swPhaseDigit === 3 ||
     (swPhaseDigit === null && motoron?.y != null && motoron?.y !== "");
 
+  // The card of a chlorinator added on its own (placeholder controller with no code):
+  // its inner cards need the room, so the gaps in the card are smaller.
+  const isChlorinatorCard =
+    !motoron?.controller_code && motoron?.chlorinator?.length > 0;
+
   return (
     <div
       className={
@@ -102,7 +72,7 @@ export default function MotorControllerCard({
         className={`${motorstyle.motor_on_bg} ${commonstyle.cards_border_radius} ${motorstyle.motor_card_height}`}
         onClick={onCardClick}
       >
-        <div className={`${motorstyle.motor_on_pad} ${commonstyle.cards_padding}`}>
+        <div className={`${motorstyle.motor_on_pad} ${commonstyle.cards_padding}`} style={isChlorinatorCard ? { gap: "8px" } : undefined}>
           <div className="motor-tower-div-flex">
             <div className="motor-1-flex">
               <Tooltip title={motoron.controller_name || ""}>
@@ -244,7 +214,16 @@ export default function MotorControllerCard({
             </div>
           ) : null}
 
-          <div className="motor-div-one-flex">
+          <div className="motor-div-one-flex" style={isChlorinatorCard ? { gap: "2px" } : undefined}>
+            {!motoron?.controller_code && motoron?.chlorinator?.length > 0 ? (
+              <p className="tank-header" style={{ margin: 0 }}>
+                ID -{" "}
+                <span className="tank-date">
+                  {motoron.chlorinator.map((unit) => unit?.device_code).join(", ")}
+                </span>
+              </p>
+            ) : null}
+
             {motoron?.controller_code ? (
               <>
                 <div className="motor-update-div-flex">
@@ -593,48 +572,7 @@ export default function MotorControllerCard({
                   {motoron?.chlorinator?.map((datas, i) => {
                     return (
                       <React.Fragment key={i}>
-                        <div className={motorstyle.motor_valve_div_flex}>
-                          <div className={motorstyle.updatetank_text}>
-                            <Tooltip title={datas?.device_name || ""}>
-                              <p className={motorstyle.levels}>
-                                Chlorinator
-                              </p>
-                            </Tooltip>
-                          </div>
-                        </div>
-
-                        <div className="tank-limit" style={{ alignItems: "center", position: "relative" }}>
-                          <InfoTable
-                            rows={[
-                              ["ID", datas?.device_code],
-                              ["TDS", datas?.tds ?? "-"],
-                              ["pH", reading100(datas?.ph) ?? "-"],
-                              ["chlorine", reading100(datas?.chlorine) ?? "-"],
-                            ]}
-                          />
-                          <img
-                            src={ExportedImages.Chlorinator_Image}
-                            alt="chlorinator"
-                            className={motorstyle.flowgif}
-                            style={{
-                              width: "165px",
-                              left: "50%",
-                              right: "auto",
-                              top: "50%",
-                              margin: 0,
-                              transform: "translate(-50%, -50%)",
-                            }}
-                          />
-                          <InfoTable
-                            rows={[
-                              ["dosing switch", onOffText(datas?.dosing_switch)],
-                              ["dosing pump", pumpText(datas?.dosing_pump)],
-                              ["agitator", onOffText(datas?.agitator)],
-                              ["tank", <TankLight value={datas?.float_status} />],
-                              ["flow", <FlowStatus value={datas?.pressure_switch} />],
-                            ]}
-                          />
-                        </div>
+                        <ChlorinatorPanels unit={datas} />
                       </React.Fragment>
                     );
                   })}
