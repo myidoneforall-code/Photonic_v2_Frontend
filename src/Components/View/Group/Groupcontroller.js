@@ -44,7 +44,7 @@ export default function Groupcontroller() {
   useEffect(() => {
     const interval = setInterval(() => {
       controllergroupdata();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [pagestate]);
 

@@ -132,7 +132,7 @@ export default function Groupview() {
   useEffect(() => {
     const interval = setInterval(() => {
       GetGroupListData(page);
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [page, empty_group, name]);
 

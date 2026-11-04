@@ -53,7 +53,7 @@ export default function Groupuser() {
   useEffect(() => {
     const interval = setInterval(() => {
       usergroupdata();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [pagestate]);
 

@@ -103,8 +103,8 @@ export default function Motorcontrollerview() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      ListController();
-    }, 2 * 60000);
+      ListController(undefined, true);
+    }, 60000);
     return () => clearInterval(interval);
   }, [pagestate]);
 
@@ -118,8 +118,8 @@ export default function Motorcontrollerview() {
     }
   }, [location?.state]);
 
-  const ListController = (page) => {
-    setloader(true);
+  const ListController = (page, silent = false) => {
+    if (!silent) setloader(true);
     const filterData = deleteRef?.current;
     let formData = new FormData();
     formData.append("controller_type", controllertype);

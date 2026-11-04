@@ -38,7 +38,7 @@ export default function ControllerBarChart() {
   useEffect(() => {
     const interval = setInterval(() => {
       ConBarChart();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

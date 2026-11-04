@@ -111,10 +111,10 @@ export default function Motorcontrolleron() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      ListController();
+      ListController(undefined, true);
       dispatch(Updatefilterdata(filterdata));
       dispatch(UpdatePageState(pagestate));
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [pagestate, filterdata]);
 
@@ -126,8 +126,8 @@ export default function Motorcontrolleron() {
   };
   console.log(sorttype, "sorttype");
 
-  const ListController = (overrideSortby) => {
-    setloader(true);
+  const ListController = (overrideSortby, silent = false) => {
+    if (!silent) setloader(true);
     let formData = new FormData();
     formData.append("controller_type", 1);
     console.log(

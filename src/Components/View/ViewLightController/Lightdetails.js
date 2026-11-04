@@ -230,7 +230,7 @@ export default function Lightdetails() {
       handleGetServiceDetails();
       handleGetUserDetails();
       LightController();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

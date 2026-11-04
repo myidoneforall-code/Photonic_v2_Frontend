@@ -550,7 +550,7 @@ export default function Admindashboard() {
     const interval = setInterval(() => {
       GetDashboardData();
       handleGoogleMapApi();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

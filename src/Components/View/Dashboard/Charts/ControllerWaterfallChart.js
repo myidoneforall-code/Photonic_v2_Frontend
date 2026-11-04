@@ -75,7 +75,7 @@ export default function ControllerWaterfallChart({ controllerchart }) {
           : new Date(moment().subtract(7, "d").format("YYYY-MM-DD 00:00:00")),
         endDate: values?.endDate ? values?.endDate : new Date()
       });
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

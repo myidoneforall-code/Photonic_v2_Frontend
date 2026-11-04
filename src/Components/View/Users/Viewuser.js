@@ -177,7 +177,7 @@ export default function Viewuser() {
   useEffect(() => {
     const interval = setInterval(() => {
       handleListUser();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [userlist?.page, groupid, empty_user, name]);
 

@@ -92,15 +92,15 @@ export default function Lightnotification() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      ListController();
+      ListController(true);
       dispatch(Updatefilterdata(filterdata));
       dispatch(UpdatePageState(pagestate));
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [pagestate, filterdata]);
 
-  const ListController = () => {
-    setloader(true);
+  const ListController = (silent = false) => {
+    if (!silent) setloader(true);
     let formData = new FormData();
     formData.append("controller_type", 2);
     formData.append(

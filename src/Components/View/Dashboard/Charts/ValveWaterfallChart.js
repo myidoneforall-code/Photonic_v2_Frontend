@@ -103,7 +103,7 @@ export default function ValveWaterfallChart({ valvechart, flowList }) {
           : moment().subtract(7, "d").startOf("day").toDate().toISOString(),
         endDate: values?.endDate ? values.endDate : new Date().toISOString()
       });
-    }, 2 * 60000);
+    }, 60000);
 
     return () => clearInterval(interval);
   }, []);

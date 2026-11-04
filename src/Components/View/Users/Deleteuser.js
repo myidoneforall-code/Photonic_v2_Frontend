@@ -75,7 +75,7 @@ export default function Deleteuser() {
   useEffect(() => {
     const interval = setInterval(() => {
       handleDeleteUserList(page);
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [page, name]);
 

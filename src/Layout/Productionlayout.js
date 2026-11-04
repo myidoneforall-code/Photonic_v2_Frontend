@@ -33,7 +33,7 @@ export default function Productionlayout() {
   useEffect(() => {
     const interval = setInterval(() => {
       userprofile();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

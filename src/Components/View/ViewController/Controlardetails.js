@@ -627,7 +627,7 @@ export default function Controlardetails() {
       ) {
         MotorController(false, true);
       }
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [valvetime]);
 

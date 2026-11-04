@@ -325,7 +325,7 @@ export default function Addcontroller() {
   useEffect(() => {
     const interval = setInterval(() => {
       getGroupOptions();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

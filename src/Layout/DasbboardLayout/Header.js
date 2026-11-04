@@ -133,8 +133,8 @@ export default function Header() {
     }
   };
 
-  const getUserProfileData = () => {
-    setloader(true);
+  const getUserProfileData = (silent = false) => {
+    if (!silent) setloader(true);
     profile(LoginDatas?.user_id)
       .then(({ data }) => {
         dispatch(UpdateLoginUserData(data));
@@ -254,8 +254,8 @@ export default function Header() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getUserProfileData();
-    }, 2 * 60000);
+      getUserProfileData(true);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

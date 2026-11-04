@@ -225,7 +225,7 @@ export default function FlowBarChart({ flowchart, flowList }) {
   useEffect(() => {
     const interval = setInterval(() => {
       flowdataRef.current();
-    }, 2 * 60000);
+    }, 60000);
 
     return () => clearInterval(interval);
   }, []);

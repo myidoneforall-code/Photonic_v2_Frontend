@@ -34,7 +34,7 @@ export default function Usercontroller() {
   useEffect(() => {
     const interval = setInterval(() => {
       usergroouplist();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

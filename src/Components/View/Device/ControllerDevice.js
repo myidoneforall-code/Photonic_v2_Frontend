@@ -325,7 +325,7 @@ export default function Controllerdevice() {
       // briefly hides the whole grid (tank image included) behind it even
       // though only the percentage/fill level actually needed to update.
       ListController(list?.page || 1, list?.size || 12, undefined, false, true);
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [list?.page, list?.size]);
 

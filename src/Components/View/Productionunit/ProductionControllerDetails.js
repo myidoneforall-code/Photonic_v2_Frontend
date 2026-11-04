@@ -596,7 +596,7 @@ export default function ProductionControllerDetails() {
   useEffect(() => {
     const interval = setInterval(() => {
       toviewcontroller();
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

@@ -80,10 +80,10 @@ export default function Motorcontrollerview() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      ListController();
+      ListController(true);
       dispatch(Updatefilterdata(filterdata));
       dispatch(UpdatePageState(pagestate));
-    }, 2 * 60000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [filterdata, pagestate]);
 
@@ -120,9 +120,9 @@ export default function Motorcontrollerview() {
     dispatch(UpdatePageState(1));
   };
 
-  const ListController = () => {
-    window.scrollTo(0, 0);
-    setloader(true);
+  const ListController = (silent = false) => {
+    if (!silent) window.scrollTo(0, 0);
+    if (!silent) setloader(true);
     let formData = new FormData();
     formData.append("controller_type", 1);
     if (filterdata?.sortby || sorttype) {
