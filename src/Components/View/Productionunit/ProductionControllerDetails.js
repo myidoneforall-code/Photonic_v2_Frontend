@@ -46,7 +46,11 @@ import {
   FlowStatus,
   TankLight,
 } from "../ViewController/HistoryDetails/ChlorinatorHistoryDetails";
-import { MultiDeviceList } from "../../../Utilities/Constants";
+import {
+  MultiDeviceList,
+  ChlorinatorChecklist,
+  chlorinatorTicked,
+} from "../../../Utilities/Constants";
 import { Checkbox, Col, Row } from "antd";
 import devicestyle from "../ViewController/motorcontroller.module.css";
 
@@ -94,6 +98,8 @@ export default function ProductionControllerDetails() {
     valve: [],
   });
   const [ShowEditPosition, setShowEditPosition] = useState(false);
+  const [ShowEditChlorinator, setShowEditChlorinator] = useState(false);
+  const [chlorinatorTicks, setChlorinatorTicks] = useState([1, 2, 3, 4]);
   const [type, settype] = useState({
     requesttypeOne: 1,
     requesttypeTwo: 2,
@@ -559,6 +565,43 @@ export default function ProductionControllerDetails() {
         toast.error(data.msg);
       }
     });
+  };
+
+  // The ticks saved on the device (null: the checklist was never edited, all four).
+  const savedTicks = chlorinatorTicked(data?.chlorinator_position);
+  useEffect(() => {
+    setChlorinatorTicks(chlorinatorTicked(data?.chlorinator_position));
+  }, [data?.chlorinator_position]);
+
+  const handleChangeChlorinator = (id) => {
+    setChlorinatorTicks((pre) =>
+      pre.includes(id) ? pre.filter((ele) => ele !== id) : [...pre, id]
+    );
+  };
+
+  // Like the multi positions: saving the ticks keeps the status the device has.
+  const handleEditChlorinator = () => {
+    setloader(true);
+    let Ticks = {
+      chlorinator_position: [...chlorinatorTicks].sort().join(","),
+      device_name: data?.device_name,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      is_fixed: data?.is_fixed ? data?.is_fixed : 0,
+      status: data?.status ?? 0,
+    };
+    editdevice(Ticks, data?.device_id)
+      .then(({ data }) => {
+        toviewcontroller();
+        toast(data, { type: "success" });
+      })
+      .catch((err) => {
+        getCatchMsg(err);
+      })
+      .finally(() => {
+        setShowEditChlorinator(false);
+        setloader(false);
+      });
   };
 
   const handleEditPosition = () => {
@@ -1608,28 +1651,73 @@ export default function ProductionControllerDetails() {
               </div>
             </div>
 
+            <div className={commonstyle.slotContainer}>
+              <div className={commonstyle.soltFlex}>
+                <p>Chlorinator Position</p>
+                <div className={commonstyle.soltFlex}>
+                  {ChlorinatorChecklist.map((item) => (
+                    <div className={commonstyle.slotItmesFlex} key={item.id}>
+                      <p>{item.label}</p>
+                      <Checkbox
+                        disabled={!ShowEditChlorinator}
+                        className={"CheckBox_innerStyle"}
+                        checked={chlorinatorTicks.includes(item.id)}
+                        onChange={() => handleChangeChlorinator(item.id)}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <img
+                  src={
+                    !ShowEditChlorinator
+                      ? ExportedImages.EDIT_ICON_BLUE
+                      : ExportedImages.SAVE_ICON_BLUE
+                  }
+                  alt="edit"
+                  onClick={() => {
+                    if (ShowEditChlorinator) {
+                      handleEditChlorinator();
+                    } else {
+                      setShowEditChlorinator((pre) => !pre);
+                    }
+                  }}
+                  className="pointerCurser"
+                />
+              </div>
+            </div>
+
             <div className="sub-details">
               <div className="productionflex-data">
+                {savedTicks.includes(3) ? (
                 <p className="tank-usage">
                   <span className="tank-header">TDS - </span>
                   <span className="tank-date">{data?.tds}</span>
                 </p>
+                ) : null}
+                {savedTicks.includes(2) ? (
                 <p className="tank-usage">
                   <span className="tank-header">pH - </span>
                   <span className="tank-date">{reading100(data?.ph)}</span>
                 </p>
+                ) : null}
+                {savedTicks.includes(4) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Chlorine - </span>
                   <span className="tank-date">{reading100(data?.chlorine)}</span>
                 </p>
+                ) : null}
+                {savedTicks.includes(1) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Dosing switch - </span>
                   <span className="tank-date">{onOffText(data?.dosing_switch)}</span>
                 </p>
+                ) : null}
+                {savedTicks.includes(1) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Dosing pump - </span>
                   <span className="tank-date">{pumpText(data?.dosing_pump)}</span>
                 </p>
+                ) : null}
               </div>
 
               <div>
@@ -1650,18 +1738,24 @@ export default function ProductionControllerDetails() {
               </div>
 
               <div className="productionflex-data text-end">
+                {savedTicks.includes(1) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Agitator - </span>
                   <span className="tank-date">{onOffText(data?.agitator)}</span>
                 </p>
+                ) : null}
+                {savedTicks.includes(1) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Tank - </span>
                   <span className="tank-date"><TankLight value={data?.float_status} /></span>
                 </p>
+                ) : null}
+                {savedTicks.includes(1) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Flow - </span>
                   <span className="tank-date"><FlowStatus value={data?.pressure_switch} /></span>
                 </p>
+                ) : null}
                 <p>
                   <span className="tank-header">Hardware Version - </span>
                   <span className="tank-date">{data?.hardware_version}</span>

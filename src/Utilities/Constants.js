@@ -255,3 +255,25 @@ export const MultiDeviceList = ["tank", "flow", "valve"].reduce(
   }),
   {}
 );
+
+
+// The checklist of a chlorinator on the production page, like the positions of a
+// multi device: R1 is the unit status, R2 the pH, R3 the TDS and R4 the chlorine.
+export const ChlorinatorChecklist = [
+  { id: 1, label: "R1 Chlorinator" },
+  { id: 2, label: "R2 pH" },
+  { id: 3, label: "R3 TDS" },
+  { id: 4, label: "R4 Chlorine" },
+];
+
+// The R numbers ticked on the checklist. A chlorinator whose checklist was never
+// edited (null) shows all four, as before.
+export const chlorinatorTicked = (position) => {
+  if (position === null || position === undefined) {
+    return [1, 2, 3, 4];
+  }
+  return String(position)
+    .split(",")
+    .map((part) => parseInt(part, 10))
+    .filter((part) => !Number.isNaN(part));
+};

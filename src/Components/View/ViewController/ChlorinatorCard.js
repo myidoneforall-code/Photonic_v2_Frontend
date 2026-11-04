@@ -1,4 +1,5 @@
 import chlorineImage from "../../../Assets/image/chlorine.png";
+import { chlorinatorTicked } from "../../../Utilities/Constants";
 import {
   onOffText,
   pumpText,
@@ -68,14 +69,14 @@ export default function ChlorinatorCard({ controllerdata }) {
             <div
               style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}
             >
-              {cell("TDS", show(unit?.tds), "#7c5cfa")}
-              {cell("pH", show(reading100(unit?.ph)), "#1677f2")}
-              {cell("Chlorine", show(reading100(unit?.chlorine)), "#f59e0b")}
-              {cell("Dosing switch", onOffText(unit?.dosing_switch))}
-              {cell("Dosing pump", pumpText(unit?.dosing_pump))}
-              {cell("Agitator", onOffText(unit?.agitator))}
-              {cell("Tank", <TankLight value={unit?.float_status} />)}
-              {cell("Flow", <FlowStatus value={unit?.pressure_switch} />)}
+              {chlorinatorTicked(unit?.chlorinator_position).includes(3) && cell("TDS", show(unit?.tds), "#7c5cfa")}
+              {chlorinatorTicked(unit?.chlorinator_position).includes(2) && cell("pH", show(reading100(unit?.ph)), "#1677f2")}
+              {chlorinatorTicked(unit?.chlorinator_position).includes(4) && cell("Chlorine", show(reading100(unit?.chlorine)), "#f59e0b")}
+              {chlorinatorTicked(unit?.chlorinator_position).includes(1) && cell("Dosing switch", onOffText(unit?.dosing_switch))}
+              {chlorinatorTicked(unit?.chlorinator_position).includes(1) && cell("Dosing pump", pumpText(unit?.dosing_pump))}
+              {chlorinatorTicked(unit?.chlorinator_position).includes(1) && cell("Agitator", onOffText(unit?.agitator))}
+              {chlorinatorTicked(unit?.chlorinator_position).includes(1) && cell("Tank", <TankLight value={unit?.float_status} />)}
+              {chlorinatorTicked(unit?.chlorinator_position).includes(1) && cell("Flow", <FlowStatus value={unit?.pressure_switch} />)}
             </div>
           </div>
         </div>

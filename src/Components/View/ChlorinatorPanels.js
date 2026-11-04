@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import chlorineImage from "../../Assets/image/chlorine.png";
+import { chlorinatorTicked } from "../../Utilities/Constants";
 import {
   onOffText,
   pumpText,
@@ -510,28 +511,40 @@ const SwitchesCard = ({ unit }) => {
 // switches.
 export default function ChlorinatorPanels({ unit }) {
   const uid = unit?.device_id ?? "x";
+  // The readings ticked on the production page: R1 status (the tank, the flow and
+  // the switches), R2 pH, R3 TDS, R4 chlorine. A checklist never edited shows all.
+  const ticks = chlorinatorTicked(unit?.chlorinator_position);
+  const tiles = 1 + [2, 3, 4].filter((r) => ticks.includes(r)).length;
   return (
     <>
       <style>{CSS}</style>
       <div style={{ width: "100%", marginTop: "4px", display: "flex", flexDirection: "column", gap: "8px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(${tiles}, 1fr)`, gap: "8px" }}>
           <ImageTile />
-          <ValueTile label="TDS" value={unit?.tds} unit="ppm" color="#FF4D5A" tint="#FCE7E4" />
-          <ValueTile
-            label="Chlorine"
-            value={reading100(unit?.chlorine)}
-            unit="ppm"
-            color="#FBBF24"
-            tint="#FFFFE5"
-          />
-          <PhValueTile ph={unit?.ph} />
+          {ticks.includes(3) ? (
+            <ValueTile label="TDS" value={unit?.tds} unit="ppm" color="#FF4D5A" tint="#FCE7E4" />
+          ) : null}
+          {ticks.includes(4) ? (
+            <ValueTile
+              label="Chlorine"
+              value={reading100(unit?.chlorine)}
+              unit="ppm"
+              color="#FBBF24"
+              tint="#FFFFE5"
+            />
+          ) : null}
+          {ticks.includes(2) ? <PhValueTile ph={unit?.ph} /> : null}
         </div>
-        <PhCard ph={unit?.ph} uid={uid} />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-          <TankCard value={unit?.float_status} uid={uid} />
-          <FlowCard value={unit?.pressure_switch} uid={uid} />
-        </div>
-        <SwitchesCard unit={unit} />
+        {ticks.includes(2) ? <PhCard ph={unit?.ph} uid={uid} /> : null}
+        {ticks.includes(1) ? (
+          <>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+              <TankCard value={unit?.float_status} uid={uid} />
+              <FlowCard value={unit?.pressure_switch} uid={uid} />
+            </div>
+            <SwitchesCard unit={unit} />
+          </>
+        ) : null}
       </div>
     </>
   );
