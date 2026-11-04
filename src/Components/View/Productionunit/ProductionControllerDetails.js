@@ -99,7 +99,7 @@ export default function ProductionControllerDetails() {
   });
   const [ShowEditPosition, setShowEditPosition] = useState(false);
   const [ShowEditChlorinator, setShowEditChlorinator] = useState(false);
-  const [chlorinatorTicks, setChlorinatorTicks] = useState([1, 2, 3, 4]);
+  const [chlorinatorTicks, setChlorinatorTicks] = useState([]);
   const [type, settype] = useState({
     requesttypeOne: 1,
     requesttypeTwo: 2,
@@ -567,7 +567,7 @@ export default function ProductionControllerDetails() {
     });
   };
 
-  // The ticks saved on the device (null: the checklist was never edited, all four).
+  // The ticks saved on the device (null: the checklist was never edited, none).
   const savedTicks = chlorinatorTicked(data?.chlorinator_position);
   useEffect(() => {
     setChlorinatorTicks(chlorinatorTicked(data?.chlorinator_position));
@@ -1651,28 +1651,11 @@ export default function ProductionControllerDetails() {
               </div>
             </div>
 
-            <div className={commonstyle.slotContainer}>
-              <div className={commonstyle.soltFlex}>
-                <p>Chlorinator Position</p>
-                <div className={commonstyle.soltFlex}>
-                  {ChlorinatorChecklist.map((item) => (
-                    <div className={commonstyle.slotItmesFlex} key={item.id}>
-                      <p>{item.label}</p>
-                      <Checkbox
-                        disabled={!ShowEditChlorinator}
-                        className={"CheckBox_innerStyle"}
-                        checked={chlorinatorTicks.includes(item.id)}
-                        onChange={() => handleChangeChlorinator(item.id)}
-                      />
-                    </div>
-                  ))}
-                </div>
+            <div style={{ marginBottom: 12 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <p style={{ margin: 0, fontWeight: 500 }}>Chlorinator Position</p>
                 <img
-                  src={
-                    !ShowEditChlorinator
-                      ? ExportedImages.EDIT_ICON_BLUE
-                      : ExportedImages.SAVE_ICON_BLUE
-                  }
+                  src={!ShowEditChlorinator ? ExportedImages.EDIT_ICON_BLUE : ExportedImages.SAVE_ICON_BLUE}
                   alt="edit"
                   onClick={() => {
                     if (ShowEditChlorinator) {
@@ -1684,9 +1667,34 @@ export default function ProductionControllerDetails() {
                   className="pointerCurser"
                 />
               </div>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
+                <thead>
+                  <tr>
+                    {ChlorinatorChecklist.map((item) => (
+                      <th key={item.id} style={{ ...{ border: "1px solid #d9dee3", padding: "8px 10px", textAlign: "center" }, background: "#eaf6fb", fontWeight: 500 }}>
+                        {item.label}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {ChlorinatorChecklist.map((item) => (
+                      <td key={item.id} style={{ border: "1px solid #d9dee3", padding: "8px 10px", textAlign: "center" }}>
+                        <Checkbox
+                          disabled={!ShowEditChlorinator}
+                          className={"CheckBox_innerStyle"}
+                          checked={chlorinatorTicks.includes(item.id)}
+                          onChange={() => handleChangeChlorinator(item.id)}
+                        />
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-            <div className="sub-details">
+            <div className="sub-details" style={{ display: "flex", flexWrap: "nowrap", alignItems: "flex-start", justifyContent: "space-between", gap: "12px" }}>
               <div className="productionflex-data">
                 {savedTicks.includes(3) ? (
                 <p className="tank-usage">
@@ -1728,8 +1736,8 @@ export default function ProductionControllerDetails() {
                   // The flow meter picture is placed for a taller card; this card
                   // is shorter, so the symbol is smaller and sits in the middle.
                   style={{
-                    top: "74px",
-                    bottom: "auto",
+                    position: "static",
+                    margin: "0 auto",
                     width: "130px",
                     height: "130px",
                     objectFit: "contain",
@@ -1737,7 +1745,7 @@ export default function ProductionControllerDetails() {
                 />
               </div>
 
-              <div className="productionflex-data text-end">
+              <div className="productionflex-data" style={{ textAlign: "left" }}>
                 {savedTicks.includes(1) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Agitator - </span>

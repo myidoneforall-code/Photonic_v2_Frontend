@@ -266,11 +266,11 @@ export const ChlorinatorChecklist = [
   { id: 4, label: "R4 Chlorine" },
 ];
 
-// The R numbers ticked on the checklist. A chlorinator whose checklist was never
-// edited (null) shows all four, as before.
+// The R numbers ticked on the checklist. Nothing is ticked by default (null), like the
+// multi positions: only what is ticked is shown.
 export const chlorinatorTicked = (position) => {
   if (position === null || position === undefined) {
-    return [1, 2, 3, 4];
+    return [];
   }
   return String(position)
     .split(",")
