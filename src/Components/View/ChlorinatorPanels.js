@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import chlorineImage from "../../Assets/image/chlorine.png";
 import {
   onOffText,
@@ -57,6 +58,10 @@ const CSS = `
 .chl-flow{animation:chl-wave 1.2s linear infinite}
 .chl-spin{animation:chl-spin 1.4s linear infinite;transform-origin:12px 12px}
 .chl-drip{animation:chl-drip 1.2s linear infinite}
+@keyframes chl-gfront{from{transform:translateX(0)}to{transform:translateX(calc(var(--chl-s) * -1))}}
+@keyframes chl-gback{from{transform:translateX(calc(var(--chl-s) * -1))}to{transform:translateX(0)}}
+@keyframes chl-ribbon{from{transform:translateX(0)}to{transform:translateX(48px)}}
+.chl-ribbon-move{animation:chl-ribbon 1.2s linear infinite}
 `;
 
 // The cards are small: the whole set has to fit in the controller card (460px high).
@@ -238,9 +243,120 @@ const rowCard = (alert) => ({
   padding: "6px 10px",
 });
 
-// Tank: 1 is the round tank with moving water, 0 is an empty tank and the card
-// turns red.
-const TankCard = ({ value, uid }) => {
+// The same tank and pipe as the mobile app (WaterGauge and LiquidRibbonFlow),
+// drawn with SVG and CSS animation.
+
+// One wave period is exactly `size` wide, so sliding the wave by `size` loops
+// without a jump.
+const wavePath = (size, amp, height, phase) => {
+  const width = size * 2;
+  let d = `M0 ${amp}`;
+  for (let x = 0; x <= width; x += 3) {
+    const y = amp + amp * Math.sin((x / size) * 2 * Math.PI + phase);
+    d += ` L${x} ${y.toFixed(2)}`;
+  }
+  return `${d} L${width} ${height} L0 ${height} Z`;
+};
+
+// A round tank: water rises to the level and the surface keeps waving (a back
+// wave and a front wave moving the other way).
+const WaterGauge = ({
+  size = 64,
+  level = 0,
+  color = "#7FD8FF",
+  backColor = "#BFEBFF",
+  rimColor = "#D6EFFB",
+}) => {
+  const pct = Math.max(0, Math.min(100, level));
+  const amp = Math.max(2, size * 0.05);
+  const waveHeight = size + amp * 3;
+  const backPath = useMemo(() => wavePath(size, amp, waveHeight, 1.6), [size, amp, waveHeight]);
+  const frontPath = useMemo(() => wavePath(size, amp, waveHeight, 0), [size, amp, waveHeight]);
+  // empty: the wave is below the circle; full: its surface is at the top
+  const top = size + amp - (pct / 100) * (size + amp * 2);
+  const wave = (path, fill, animation) => (
+    <svg
+      width={size * 2}
+      height={waveHeight}
+      style={{
+        position: "absolute",
+        left: 0,
+        top,
+        transition: "top 1s cubic-bezier(0.215, 0.61, 0.355, 1)",
+        animation,
+      }}
+    >
+      <path d={path} fill={fill} />
+    </svg>
+  );
+  return (
+    <div
+      style={{
+        "--chl-s": `${size}px`,
+        position: "relative",
+        width: size,
+        height: size,
+        borderRadius: "50%",
+        overflow: "hidden",
+        background: "#fff",
+        border: `2px solid ${rimColor}`,
+        boxSizing: "border-box",
+        flexShrink: 0,
+      }}
+    >
+      {wave(backPath, backColor, "chl-gback 3.8s linear infinite")}
+      {wave(frontPath, color, "chl-gfront 2.6s linear infinite")}
+    </div>
+  );
+};
+
+// A small horizontal pipe. With flow the blue water inside it moves from left
+// to right as smooth ribbons; without flow the pipe is shown empty.
+const FlowPipe = ({ flowing, width = 122, uid }) => {
+  const height = (86 * width) / 220;
+  return (
+    <svg width={width} height={height} viewBox="0 0 220 86" style={{ display: "block" }}>
+      <defs>
+        <linearGradient id={`chl-ribbon-water-${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#7de0fc" />
+          <stop offset="0.55" stopColor="#0ea5e9" />
+          <stop offset="1" stopColor="#0474bb" />
+        </linearGradient>
+        <clipPath id={`chl-ribbon-clip-${uid}`}>
+          <rect x="15" y="25" width="190" height="36" rx="4" />
+        </clipPath>
+      </defs>
+      <rect x="8" y="20" width="204" height="46" rx="8" fill="#d5e2ea" stroke="#7894a6" strokeWidth="2" />
+      <rect x="15" y="25" width="190" height="36" rx="4" fill="#e4f4fa" />
+      {flowing ? (
+        <g clipPath={`url(#chl-ribbon-clip-${uid})`}>
+          <rect x="15" y="25" width="190" height="36" fill={`url(#chl-ribbon-water-${uid})`} />
+          <g className="chl-ribbon-move">
+            {Array.from({ length: 7 }, (_, i) => (
+              <path
+                key={i}
+                d="M0 0 Q12 -14 24 0 T48 0"
+                transform={`translate(${-33 + i * 48} 43)`}
+                stroke="#b8f3ff"
+                strokeWidth="7"
+                strokeLinecap="round"
+                opacity="0.75"
+                fill="none"
+              />
+            ))}
+          </g>
+        </g>
+      ) : null}
+      <path d="M18 28 H202" stroke="white" strokeWidth="3" opacity="0.55" strokeLinecap="round" />
+      <rect x="5" y="16" width="12" height="54" rx="3" fill="#9cb1c0" stroke="#71899a" />
+      <rect x="203" y="16" width="12" height="54" rx="3" fill="#9cb1c0" stroke="#71899a" />
+    </svg>
+  );
+};
+
+// Tank: 1 is the round tank with moving water at half, 0 is an empty tank and
+// the card turns red.
+const TankCard = ({ value }) => {
   const state = flag(value);
   const half = state === 1;
   const empty = state === 0;
@@ -248,33 +364,12 @@ const TankCard = ({ value, uid }) => {
     <div style={rowCard(empty)}>
       <p style={titleStyle(empty)}>TANK</p>
       <div style={picture}>
-        <svg width="62" height="62" viewBox="0 0 62 62">
-          <defs>
-            <clipPath id={`chl-tank-${uid}`}>
-              <circle cx="31" cy="31" r="27" />
-            </clipPath>
-          </defs>
-          <circle cx="31" cy="31" r="27" fill={empty ? "#FADADC" : "#BFEBFF"} />
-          {half ? (
-            <g clipPath={`url(#chl-tank-${uid})`}>
-              <rect x="0" y="31" width="62" height="34" fill="#38B6F0" />
-              <g className="chl-wave">
-                <path
-                  d="M0 31 Q6 26 12 31 T24 31 T36 31 T48 31 T60 31 T72 31 T84 31 V38 H0 Z"
-                  fill="#7DD3F7"
-                />
-              </g>
-            </g>
-          ) : null}
-          <circle
-            cx="31"
-            cy="31"
-            r="27"
-            fill="none"
-            stroke={empty ? COLORS.red : "#D6EFFB"}
-            strokeWidth="3"
-          />
-        </svg>
+        <WaterGauge
+          size={64}
+          level={half ? 50 : 0}
+          rimColor={empty ? COLORS.red : "#D6EFFB"}
+          backColor={empty ? "#FADADC" : "#BFEBFF"}
+        />
       </div>
     </div>
   );
@@ -290,29 +385,7 @@ const FlowCard = ({ value, uid }) => {
     <div style={rowCard(stopped)}>
       <p style={titleStyle(stopped)}>FLOW</p>
       <div style={picture}>
-        <svg width="100" height="48" viewBox="0 12 104 40">
-          <defs>
-            <clipPath id={`chl-pipe-${uid}`}>
-              <rect x="9" y="23" width="86" height="18" />
-            </clipPath>
-          </defs>
-          <rect x="6" y="20" width="92" height="24" rx="4" fill="#E6F1FB" stroke="#9AA7B5" strokeWidth="2" />
-          {flowing ? (
-            <g clipPath={`url(#chl-pipe-${uid})`}>
-              <rect x="9" y="23" width="86" height="18" fill="#38B6F0" />
-              <g className="chl-flow">
-                <path
-                  d="M0 32 Q6 24 12 32 T24 32 T36 32 T48 32 T60 32 T72 32 T84 32 T96 32 T108 32 T120 32"
-                  fill="none"
-                  stroke="#E6F7FF"
-                  strokeWidth="3"
-                />
-              </g>
-            </g>
-          ) : null}
-          <rect x="0" y="16" width="8" height="32" rx="2" fill="#5F6B7A" />
-          <rect x="96" y="16" width="8" height="32" rx="2" fill="#5F6B7A" />
-        </svg>
+        <FlowPipe flowing={flowing} uid={uid} />
         <p style={{ fontSize: "11px", margin: 0, lineHeight: "14px" }}>
           <FlowStatus value={value} />
         </p>
