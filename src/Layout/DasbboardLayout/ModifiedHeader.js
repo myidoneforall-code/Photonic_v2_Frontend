@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { FaUsers } from "react-icons/fa";
 import { SiMqtt } from "react-icons/si";
+import { MdLocationOn } from "react-icons/md";
 import { toast } from "react-hot-toast";
 import Loader from "../../Components/Loader";
 import { useDispatch, useSelector } from "react-redux";
@@ -557,6 +558,19 @@ export default function ModifiedHeader() {
                   <span className="tooltip-text">SMS Setting</span>
                 )}
               </Link>
+              <Link
+                to="/dashboard/state_district"
+                className="dashbord-pages"
+                onClick={() => {
+                  if (breakPoint) setShowSidebar(false);
+                }}
+              >
+                <MdLocationOn className="icons user" style={{ width: "28px", height: "28px" }} />
+                {!isCollapsed && <p className="page-name">State and District</p>}
+                {isCollapsed && (
+                  <span className="tooltip-text">State and District</span>
+                )}
+              </Link>
             </>
           )}
           {/* <Link
@@ -763,6 +777,7 @@ export default function ModifiedHeader() {
                   location.pathname !== "/dashboard/sim" &&
                   location?.pathname !== "/dashboard/payment_history" &&
                   location?.pathname !== "/dashboard/sms_setting" &&
+                  location?.pathname !== "/dashboard/state_district" &&
                   location?.pathname !== "/dashboard/production_history" &&
                   location?.pathname !== "/dashboard/mqtt" && (
                     <div
@@ -978,6 +993,7 @@ export default function ModifiedHeader() {
             location.pathname !== "/dashboard/sim" &&
             location?.pathname !== "/dashboard/payment_history" &&
             location?.pathname !== "/dashboard/sms_setting" &&
+            location?.pathname !== "/dashboard/state_district" &&
             location?.pathname !== "/dashboard/production_history" &&
             location?.pathname !== "/dashboard/mqtt" && (
               <div className="mobile-controllers">

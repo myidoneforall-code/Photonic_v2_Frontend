@@ -514,3 +514,17 @@ export const ListControllerTableReport = (page, size, data) => {
     data
   );
 };
+
+// Super Admin: add and delete states and districts
+export const AddStateService = (data) => {
+  return axios.post("drop_down/add_state", data);
+};
+export const AddDistrictService = (data) => {
+  return axios.post("drop_down/add_district", data);
+};
+export const LocationUsageService = (data) => {
+  return axios.post("drop_down/location_usage", data);
+};
+export const DeleteLocationService = (data) => {
+  return axios.post("drop_down/delete_location", data);
+};

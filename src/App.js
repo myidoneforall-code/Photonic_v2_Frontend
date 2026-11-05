@@ -67,6 +67,7 @@ import Mqtt from "./Components/View/Report/Mqtt";
 import Sim from "./Components/View/Report/Sim";
 import PaymentHistory from "./Components/View/Report/PaymentHistory";
 import SmsSetting from "./Components/View/Report/SmsSetting";
+import StateDistrict from "./Components/View/StateDistrict/StateDistrict";
 import Monitoring from "./Components/View/Report/Monitoring";
 import Dashboard from "./Components/View/Dashboard/dashboard";
 import Permission from "./Components/View/UserPermission/Permission";
@@ -240,6 +241,7 @@ const routes = [
           { path: "monitoring", element: <Monitoring /> },
           { path: "payment_history", element: <PaymentHistory /> },
           { path: "sms_setting", element: <SmsSetting /> },
+          { path: "state_district", element: <StateDistrict /> },
 
           { path: "amcreport", element: <AMCReport /> },
 
