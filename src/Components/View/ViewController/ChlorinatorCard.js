@@ -1,17 +1,23 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import MotorControllerCard from "../MotorControllerCard";
-import { devicerefreshapi } from "../../../Service/ApiService";
+import { devicerefreshapi, RenameDeviceService } from "../../../Service/ApiService";
+import { getCatchMsg } from "../../../Utilities/Methods";
 
 // The chlorinators on a controller, inside the controller page. Each one is the very same
 // card as in the controller list (MotorControllerCard, the card of a chlorinator added on its
 // own): the same size, refresh icon and animated panels. Only its place is different: it
-// sits in the middle of the page.
+// sits in the middle of the page. Its name can be edited here (pencil, then save).
 export default function ChlorinatorCard({ controllerdata, onRefresh, usertype }) {
   const [loadingId, setLoadingId] = useState(null);
+  const [editingId, setEditingId] = useState(null);
+  const [nameValue, setNameValue] = useState("");
   const units = controllerdata?.chlorinator || [];
   if (units.length === 0) {
     return null;
   }
+  // Same rule as the name of the controller: a user with only view / operate access cannot edit.
+  const canEdit = ![2, 3].includes(Number(controllerdata?.access_type));
 
   // Same as the refresh icon of the list card: ask the unit for its data, then reload.
   const refresh = (deviceId, accessType) => {
@@ -36,6 +42,28 @@ export default function ChlorinatorCard({ controllerdata, onRefresh, usertype })
     devicerefreshapi(formData).catch(() => {});
   };
 
+  // Only the name is changed, nothing else of the device is touched.
+  const saveName = (unit) => {
+    const name = nameValue.trim();
+    if (!name) {
+      toast.error("Enter a name");
+      return;
+    }
+    if (name === unit?.device_name) {
+      setEditingId(null);
+      return;
+    }
+    const formData = new FormData();
+    formData.append("device_name", name);
+    RenameDeviceService(unit?.device_id, formData)
+      .then((res) => {
+        toast.success(typeof res?.data === "string" ? res.data : "Success");
+        setEditingId(null);
+        if (onRefresh) onRefresh();
+      })
+      .catch((err) => getCatchMsg(err));
+  };
+
   return (
     <>
       {units.map((unit, index) => {
@@ -52,6 +80,7 @@ export default function ChlorinatorCard({ controllerdata, onRefresh, usertype })
           is_warning: unit?.is_warning,
           no_of_days: unit?.no_of_days,
         };
+        const editing = editingId === unit?.device_id;
         return (
           <div
             key={unit?.device_id ?? index}
@@ -69,6 +98,23 @@ export default function ChlorinatorCard({ controllerdata, onRefresh, usertype })
                 buttongreyid=""
                 usertype={usertype}
                 openNotification={() => {}}
+                nameEdit={
+                  canEdit
+                    ? {
+                        editing,
+                        value: nameValue,
+                        onChange: setNameValue,
+                        onToggle: () => {
+                          if (editing) {
+                            saveName(unit);
+                          } else {
+                            setNameValue(unit?.device_name || "");
+                            setEditingId(unit?.device_id);
+                          }
+                        },
+                      }
+                    : undefined
+                }
               />
             </div>
           </div>

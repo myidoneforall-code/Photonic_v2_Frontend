@@ -42,7 +42,8 @@ export default function MotorControllerCard({
   openNotification,
   valvebuttontype = 1,
   onCardClick,
-  showDeviceMeta = false
+  showDeviceMeta = false,
+  nameEdit
 }) {
   const swPhaseDigit = motoron?.software_version
     ? parseInt(String(motoron.software_version).charAt(0))
@@ -83,9 +84,40 @@ export default function MotorControllerCard({
         <div className={`${motorstyle.motor_on_pad} ${commonstyle.cards_padding}`} style={isChlorinatorCard ? { gap: "8px" } : undefined}>
           <div className="motor-tower-div-flex">
             <div className="motor-1-flex">
-              <Tooltip title={cardName || ""}>
-                <p className={commonstyle.item_name}>{cardName}</p>
-              </Tooltip>
+              {nameEdit?.editing ? (
+                <input
+                  type="text"
+                  maxLength={50}
+                  className={`${motorstyle.motor_name_input} filedPickBackground`}
+                  style={{ width: "100%", minWidth: 0 }}
+                  value={nameEdit.value}
+                  onChange={(e) => nameEdit.onChange(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              ) : (
+                <Tooltip title={cardName || ""}>
+                  <p className={commonstyle.item_name}>{cardName}</p>
+                </Tooltip>
+              )}
+              {nameEdit ? (
+                // In a span: the header CSS makes any second <img> of this row float over the card.
+                <span style={{ display: "inline-flex", flexShrink: 0 }}>
+                  <img
+                    src={
+                      nameEdit.editing
+                        ? ExportedImages.SAVE_ICON_BLUE
+                        : ExportedImages.EDIT_ICON_BLACK
+                    }
+                    alt="edit"
+                    className="pointerCurser"
+                    style={{ width: "20px", cursor: "pointer" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      nameEdit.onToggle();
+                    }}
+                  />
+                </span>
+              ) : null}
               {motoron.is_warning && (usertype === 2 || usertype === 3) ? (
                 <div
                   className="AMCnotificationBlock"

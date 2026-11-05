@@ -528,3 +528,8 @@ export const LocationUsageService = (data) => {
 export const DeleteLocationService = (data) => {
   return axios.post("drop_down/delete_location", data);
 };
+
+// Changes only the name of a device (Super Admin and Admin)
+export const RenameDeviceService = (id, formdata) => {
+  return axios.put(`device/rename_device/${id}`, formdata);
+};

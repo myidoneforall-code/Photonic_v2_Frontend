@@ -48,11 +48,15 @@ export default function Tankhistorydetails({
     }
   });
 
+  // Load the first page when the units are there, not at every refresh of the controller
+  // data: that put the list back on page 1 while the user was paging.
+  const hasTank = controllerdata?.tank?.length > 0;
   useEffect(() => {
-    if (controllerdata?.tank?.length > 0) {
+    if (hasTank) {
       handleGetHistory();
     }
-  }, [controllerdata]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasTank]);
 
   const handleGetHistory = (page = 1, size = 25) => {
     setloader(true);

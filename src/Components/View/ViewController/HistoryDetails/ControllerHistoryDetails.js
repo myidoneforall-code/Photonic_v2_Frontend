@@ -52,11 +52,15 @@ export default function Controllerhistorydetails({
   });
   console.log(controllertype, controllerdata, "controllerdata", historyview);
 
+  // Load the first page when the units are there, not at every refresh of the controller
+  // data: that put the list back on page 1 while the user was paging.
+  const hasController = Boolean(controllerdata?.controller_code);
   useEffect(() => {
-    if (controllerdata?.controller_code) {
+    if (hasController) {
       handleGetHistory();
     }
-  }, [controllerdata]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasController]);
 
   const handleGetHistory = (page = 1, size = 25) => {
     setloader(true);
