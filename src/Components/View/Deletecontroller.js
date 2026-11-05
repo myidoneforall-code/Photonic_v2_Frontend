@@ -237,13 +237,29 @@ export default function Motorcontrollerview() {
                     >
                       <div className={DeleteDeviceStyle.delcon_flex_one}>
                         <p className={DeleteDeviceStyle.delete_dev_name}>
-                          {motors?.controller_name}
+                          {!motors?.controller_code &&
+                          motors?.chlorinator?.length > 0 &&
+                          (!motors?.controller_name ||
+                            motors.controller_name === "Controller 0")
+                            ? motors.chlorinator[0]?.device_name ||
+                              motors?.controller_name
+                            : motors?.controller_name}
                         </p>
                         {motors?.controller_code ? (
                           <p className="tank-header">
                             <span className="tank-header">ID : </span>
                             <span className="tank-date">
                               {motors?.controller_code}
+                            </span>
+                          </p>
+                        ) : motors?.chlorinator?.length > 0 ? (
+                          // A chlorinator added on its own has no controller code: its ID is the device code.
+                          <p className="tank-header">
+                            <span className="tank-header">ID : </span>
+                            <span className="tank-date">
+                              {motors.chlorinator
+                                .map((unit) => unit?.device_code)
+                                .join(", ")}
                             </span>
                           </p>
                         ) : null}

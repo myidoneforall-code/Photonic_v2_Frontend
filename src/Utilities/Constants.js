@@ -266,11 +266,12 @@ export const ChlorinatorChecklist = [
   { id: 4, label: "R4 Chlorine" },
 ];
 
-// The R numbers ticked on the checklist. Nothing is ticked by default (null), like the
-// multi positions: only what is ticked is shown.
+// The R numbers ticked on the checklist. A checklist that was never saved (null) counts
+// as all four ticked, the same as the backend, which then saves all four readings. Once
+// it is saved, only what is ticked is shown.
 export const chlorinatorTicked = (position) => {
   if (position === null || position === undefined) {
-    return [];
+    return ChlorinatorChecklist.map((item) => item.id);
   }
   return String(position)
     .split(",")

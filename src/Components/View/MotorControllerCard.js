@@ -60,6 +60,14 @@ export default function MotorControllerCard({
   const isChlorinatorCard =
     !motoron?.controller_code && motoron?.chlorinator?.length > 0;
 
+  // That placeholder controller is named "Controller 0" when it is created, so the card
+  // shows the name given to the chlorinator itself instead.
+  const cardName =
+    isChlorinatorCard &&
+    (!motoron?.controller_name || motoron.controller_name === "Controller 0")
+      ? motoron.chlorinator[0]?.device_name || motoron?.controller_name
+      : motoron?.controller_name;
+
   return (
     <div
       className={
@@ -75,8 +83,8 @@ export default function MotorControllerCard({
         <div className={`${motorstyle.motor_on_pad} ${commonstyle.cards_padding}`} style={isChlorinatorCard ? { gap: "8px" } : undefined}>
           <div className="motor-tower-div-flex">
             <div className="motor-1-flex">
-              <Tooltip title={motoron.controller_name || ""}>
-                <p className={commonstyle.item_name}>{motoron.controller_name}</p>
+              <Tooltip title={cardName || ""}>
+                <p className={commonstyle.item_name}>{cardName}</p>
               </Tooltip>
               {motoron.is_warning && (usertype === 2 || usertype === 3) ? (
                 <div

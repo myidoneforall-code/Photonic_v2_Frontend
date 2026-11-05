@@ -407,6 +407,56 @@ export default function Deletedevice() {
               })}
             </>
           ) : null}
+          {DeviceData?.chlorinator?.length > 0 ? (
+            <>
+              {DeviceData?.chlorinator?.map((device, index) => {
+                return (
+                  <div key={index} className={DeleteDeviceStyle.deldev_bg}>
+                    <div className={DeleteDeviceStyle.deldev_flex}>
+                      <div className={DeleteDeviceStyle.deldev_flexone}>
+                        <p className={DeleteDeviceStyle.deldev_name}>
+                          {device?.device_name}
+                        </p>
+                        <div className={DeleteDeviceStyle.deldev_buttonflex}>
+                          <button
+                            onClick={() =>
+                              setremoveshow({
+                                show: true,
+                                mappingid: device?.mapping_id
+                              })
+                            }
+                            className="remove_button"
+                          >
+                            remove
+                          </button>
+                          <button
+                            onClick={() =>
+                              setdeleteshow({
+                                show: true,
+                                deviceid: device?.device_id
+                              })
+                            }
+                            className="delete_button"
+                          >
+                            delete
+                          </button>
+                        </div>
+                      </div>
+                      <div className={DeleteDeviceStyle.deldev_flexone}>
+                        <p className="tank-header">
+                          ID:
+                          <span className="tank-date">
+                            {device?.device_code}
+                          </span>
+                        </p>
+                        <p className={commonstyle.margin_zero}>Chlorinator</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          ) : null}
         </div>
       </div>
     </>

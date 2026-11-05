@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import {
   controllerrefreshapi,
@@ -183,13 +183,48 @@ export default function ProductionControllerDetails() {
     }));
   };
 
+  // A unit that is not Tested Ok yet has nothing saved, so its card is filled from the live
+  // preview. The latest preview is kept here, so the values stay filled when the page
+  // reloads its data (every minute) instead of going blank until the next preview.
+  const previewRef = useRef(null);
+  const withPreview = (unit) => {
+    const preview = previewRef.current;
+    if (!unit || unit.status === 1 || !preview) return unit;
+    const merged = { ...unit };
+    Object.keys(preview).forEach((key) => {
+      const current = merged[key];
+      const isPlaceholder =
+        current === null ||
+        current === undefined ||
+        current === "" ||
+        current === 0 ||
+        current === "0";
+      if (isPlaceholder) {
+        merged[key] = preview[key];
+      }
+    });
+    return merged;
+  };
+
+  // Which phases the motor card shows: by the software version when there is one, else by
+  // the voltages that came in.
+  const hasVolt = (value) =>
+    value !== null && value !== undefined && value !== "" && Number(value) !== 0;
+  const softwareDigit = parseInt(data?.software_version?.charAt(0));
+  const showPhaseR =
+    softwareDigit === 1 ||
+    softwareDigit === 3 ||
+    (Number.isNaN(softwareDigit) && hasVolt(data?.r));
+  const showPhaseYB =
+    softwareDigit === 3 || (Number.isNaN(softwareDigit) && hasVolt(data?.y));
+
   const toviewcontroller = () => {
     if (productiondata?.product_type === 1) {
       setloader(true);
 
       motordata(productiondata?.controller_id)
         .then(({ data }) => {
-          setdata(data);
+          setdata(withPreview(data));
           setValues({
             sim_id: data.sim_id || null,
             amc_start_date: data.amc_start_date || "",
@@ -217,7 +252,7 @@ export default function ProductionControllerDetails() {
 
       viewdeviceapi(productiondata?.device_id)
         .then(({ data }) => {
-          setdata(data);
+          setdata(withPreview(data));
           setValues({
             sim_id: data.sim_id || null,
             amc_start_date: data.amc_start_date || "",
@@ -667,23 +702,8 @@ export default function ProductionControllerDetails() {
             resp?.preview &&
             Object.keys(resp.preview).length
           ) {
-            setdata((prev) => {
-              if (!prev || prev.status === 1) return prev;
-              const merged = { ...prev };
-              Object.keys(resp.preview).forEach((key) => {
-                const current = merged[key];
-                const isPlaceholder =
-                  current === null ||
-                  current === undefined ||
-                  current === "" ||
-                  current === 0 ||
-                  current === "0";
-                if (isPlaceholder) {
-                  merged[key] = resp.preview[key];
-                }
-              });
-              return merged;
-            });
+            previewRef.current = resp.preview;
+            setdata((prev) => withPreview(prev));
           }
         })
         .catch(() => {});
@@ -960,12 +980,10 @@ export default function ProductionControllerDetails() {
               {data?.controller_code ? (
                 <>
                   <div className="sub-details">
-                    {data?.software_version != null ? (
-                      parseInt(data?.software_version?.charAt(0)) == 1 ||
-                      parseInt(data?.software_version?.charAt(0)) == 3 ? (
+                    {data?.software_version != null || showPhaseR ? (
+                      showPhaseR ? (
                         <div className="data-update">
-                          {parseInt(data?.software_version?.charAt(0)) == 1 ||
-                          parseInt(data?.software_version?.charAt(0)) == 3 ? (
+                          {showPhaseR ? (
                             <div className="motor-detail-sub-div bg-color-one">
                               <p className="volt-text-1">
                                 <span>R</span>
@@ -979,7 +997,7 @@ export default function ProductionControllerDetails() {
                               <p className="tankpf">PF {data?.rpf1}</p>
                             </div>
                           ) : null}
-                          {parseInt(data?.software_version?.charAt(0)) == 3 ? (
+                          {showPhaseYB ? (
                             <>
                               <div className="motor-detail-sub-div  bg-color-two">
                                 <p className="volt-text-1">

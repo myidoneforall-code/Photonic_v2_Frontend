@@ -162,6 +162,8 @@ export default function Controlardetails() {
   // keeps it current from then on.
   const motorsetRef = useRef({ value: motorset });
   const editEbsRef = useRef({ value: false });
+  // true while the controller name is NOT being edited (editstate true = read only)
+  const editstateRef = useRef({ value: true });
   const [devicedata, setdevice] = useState();
   const [editsetting, setedit] = useState(false);
   // Same stale-closure fix as valveTimeRef/motorTimeRef above — the
@@ -912,7 +914,11 @@ export default function Controlardetails() {
 
     setlora(data?.lora_status === 1 ? true : false);
     settopic(data?.topic);
-    setname(data?.controller_name);
+    // The background refresh must not put the old name back while the name is being
+    // typed, or Save sends the old name: it says Success and nothing changes.
+    if (editstateRef.current.value) {
+      setname(data?.controller_name);
+    }
     // Skip while the EB Number/Lat/Long edit panel (editEbs) is open —
     // same unguarded-overwrite bug as the others in this function.
     if (!editEbsRef?.current?.value) {
@@ -2656,6 +2662,9 @@ export default function Controlardetails() {
   useEffect(() => {
     editEbsRef.current.value = editEbs;
   }, [editEbs]);
+  useEffect(() => {
+    editstateRef.current.value = editstate;
+  }, [editstate]);
 
   const mergeDeviceLength = (valve) => valve.deviceMerge?.length == 2;
 
@@ -5010,6 +5019,8 @@ export default function Controlardetails() {
               )}
             </div>
           </div>
+          {/* The chlorinator comes right below the controller, before the other devices and the multi devices. */}
+          <ChlorinatorCard controllerdata={controllerdata} />
           {(tankdata?.length > 0 ||
             flowdata?.length > 0 ||
             valvedata?.length > 0 ||
@@ -10508,7 +10519,6 @@ export default function Controlardetails() {
               flowList={[...(flowdata || []), ...(getMultiDeviceCount("flow") || [])]}
             />
           ) : null}
-          <ChlorinatorCard controllerdata={controllerdata} />
           <Tabs
             defaultActiveKey={1}
             id="fill-tab-example"

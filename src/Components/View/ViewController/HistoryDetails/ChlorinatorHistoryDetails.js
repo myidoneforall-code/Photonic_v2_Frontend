@@ -85,6 +85,28 @@ export const reading100 = (value) => {
   return Number((parsed / 100).toFixed(2));
 };
 
+// The table inside each history card: a header cell over every value, the columns line up.
+const cardTable = {
+  width: "100%",
+  tableLayout: "fixed",
+  borderCollapse: "collapse",
+  margin: "8px 0",
+  fontSize: "14px",
+};
+const cardTh = {
+  background: "#EAF6FB",
+  border: "1px solid #D9DEE3",
+  padding: "5px 6px",
+  textAlign: "center",
+  fontWeight: 600,
+};
+const cardTd = {
+  border: "1px solid #D9DEE3",
+  padding: "6px",
+  textAlign: "center",
+  wordBreak: "break-word",
+};
+
 // History of a chlorinator: pH, TDS and chlorine readings with the state of the
 // dosing switch, dosing pump, agitator, float and pressure switch.
 export default function Chlorinatorhistorydetails({
@@ -178,44 +200,52 @@ export default function Chlorinatorhistorydetails({
                     style={{ height: "28px", width: "28px" }}
                   />
                 </div>
-                <div className="status-div-flex">
-                  <p>
-                    <span className="allsubhead">pH&nbsp;:&nbsp;</span>
-                    <span>{hasValue(row?.ph) ? reading100(row.ph) : "-"}</span>
-                  </p>
-                  <p>
-                    <span className="allsubhead">TDS&nbsp;:&nbsp;</span>
-                    <span>{hasValue(row?.tds) ? row.tds : "-"}</span>
-                  </p>
-                  <p>
-                    <span className="allsubhead">chlorine&nbsp;:&nbsp;</span>
-                    <span>{hasValue(row?.chlorine) ? reading100(row.chlorine) : "-"}</span>
-                  </p>
-                </div>
-                <div className="status-div-flex">
-                  <p>
-                    <span className="allsubhead">dosing switch&nbsp;:&nbsp;</span>
-                    <span>{onOffText(row?.dosing_switch)}</span>
-                  </p>
-                  <p>
-                    <span className="allsubhead">dosing pump&nbsp;:&nbsp;</span>
-                    <span>{pumpText(row?.dosing_pump)}</span>
-                  </p>
-                  <p>
-                    <span className="allsubhead">agitator&nbsp;:&nbsp;</span>
-                    <span>{onOffText(row?.agitator)}</span>
-                  </p>
-                </div>
-                <div className="status-div-flex">
-                  <p>
-                    <span className="allsubhead">tank&nbsp;:&nbsp;</span>
-                    <span><TankLight value={row?.float_status} /></span>
-                  </p>
-                  <p>
-                    <span className="allsubhead">flow&nbsp;:&nbsp;</span>
-                    <span><FlowStatus value={row?.pressure_switch} /></span>
-                  </p>
-                </div>
+                <table style={cardTable}>
+                  <tbody>
+                    <tr>
+                      {["pH", "TDS", "Chlorine"].map((title) => (
+                        <th key={title} style={cardTh}>
+                          {title}
+                        </th>
+                      ))}
+                    </tr>
+                    <tr>
+                      <td style={cardTd}>
+                        {hasValue(row?.ph) ? reading100(row.ph) : "-"}
+                      </td>
+                      <td style={cardTd}>{hasValue(row?.tds) ? row.tds : "-"}</td>
+                      <td style={cardTd}>
+                        {hasValue(row?.chlorine) ? reading100(row.chlorine) : "-"}
+                      </td>
+                    </tr>
+                    <tr>
+                      {["Dosing switch", "Dosing pump", "Agitator"].map((title) => (
+                        <th key={title} style={cardTh}>
+                          {title}
+                        </th>
+                      ))}
+                    </tr>
+                    <tr>
+                      <td style={cardTd}>{onOffText(row?.dosing_switch)}</td>
+                      <td style={cardTd}>{pumpText(row?.dosing_pump)}</td>
+                      <td style={cardTd}>{onOffText(row?.agitator)}</td>
+                    </tr>
+                    <tr>
+                      <th style={cardTh}>Tank</th>
+                      <th style={cardTh} colSpan={2}>
+                        Flow
+                      </th>
+                    </tr>
+                    <tr>
+                      <td style={cardTd}>
+                        <TankLight value={row?.float_status} />
+                      </td>
+                      <td style={cardTd} colSpan={2}>
+                        <FlowStatus value={row?.pressure_switch} />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <p>
                   <span className="allsubhead">Device&nbsp;:&nbsp;</span>
                   <span>{row?.device_name}</span>
