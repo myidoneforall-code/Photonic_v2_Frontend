@@ -1,5 +1,5 @@
 window.appConfig = {
   // local
-BASE_URL: "https://dom-lover-imported-internship.trycloudflare.com"
+BASE_URL: "https://clip-deutsche-fastest-southeast.trycloudflare.com"
 
 };
