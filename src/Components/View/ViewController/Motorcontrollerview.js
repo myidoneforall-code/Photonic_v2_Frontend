@@ -45,6 +45,18 @@ import CommonSwitch from "../../CommonComponents/CommonSwitch";
 import MultiDeviceComponent from "../MultiDeviceComponent";
 import dayjs from "dayjs";
 
+// Which phases the motor card shows: by the software version when there is one, else by
+// the voltages that came in (a new controller has no software version yet).
+const phaseDigit = (motor) => parseInt(motor?.software_version?.charAt(0));
+const hasPhaseData = (value) => value !== null && value !== undefined && value !== "";
+const showPhaseR = (motor) =>
+  phaseDigit(motor) === 1 ||
+  phaseDigit(motor) === 3 ||
+  (Number.isNaN(phaseDigit(motor)) && hasPhaseData(motor?.r));
+const showPhaseYB = (motor) =>
+  phaseDigit(motor) === 3 ||
+  (Number.isNaN(phaseDigit(motor)) && hasPhaseData(motor?.y));
+
 export default function Motorcontrollerview() {
   let abortcontroller = undefined;
   let navigate = useNavigate();
@@ -485,11 +497,8 @@ export default function Motorcontrollerview() {
                               </div>
                             </div>
 
-                            {motors?.software_version != null ? (
-                              parseInt(motors?.software_version?.charAt(0)) ==
-                                3 ||
-                              parseInt(motors?.software_version?.charAt(0)) ==
-                                1 ? (
+                            {motors?.software_version != null || showPhaseR(motors) ? (
+                              showPhaseR(motors) ? (
                                 <div
                                   className={
                                     (motors?.y && motors?.b) ||
@@ -499,12 +508,7 @@ export default function Motorcontrollerview() {
                                       : motorstyle.motor_volt_div_flex
                                   }
                                 >
-                                  {parseInt(
-                                    motors?.software_version?.charAt(0)
-                                  ) == 3 ||
-                                  parseInt(
-                                    motors?.software_version?.charAt(0)
-                                  ) == 1 ? (
+                                  {showPhaseR(motors) ? (
                                     <div
                                       className={`bg-color-one ${motorstyle.motor_volt_sub_div}`}
                                     >
@@ -518,9 +522,7 @@ export default function Motorcontrollerview() {
                                       </p>
                                     </div>
                                   ) : null}
-                                  {parseInt(
-                                    motors?.software_version?.charAt(0)
-                                  ) == 3 ? (
+                                  {showPhaseYB(motors) ? (
                                     <>
                                       <div
                                         className={`bg-color-two ${motorstyle.motor_volt_sub_div}`}
@@ -578,6 +580,11 @@ export default function Motorcontrollerview() {
                           {motors.device?.multi_count > 0 && (
                             <p>
                               Multi - <span>{motors.device?.multi_count}</span>
+                            </p>
+                          )}
+                          {motors.device?.chlorinator > 0 && (
+                            <p>
+                              Chlorinator - <span>{motors.device?.chlorinator}</span>
                             </p>
                           )}
                         </div>

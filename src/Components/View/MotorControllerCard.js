@@ -309,6 +309,11 @@ export default function MotorControllerCard({
                   multi-<span>{motoron.device.multi_count}</span>
                 </p>
               )}
+              {motoron.device?.chlorinator > 0 && (
+                <p>
+                  chlorinator-<span>{motoron.device.chlorinator}</span>
+                </p>
+              )}
             </div>
 
             {!motoron.controller_code &&
