@@ -5020,7 +5020,11 @@ export default function Controlardetails() {
             </div>
           </div>
           {/* The chlorinator comes right below the controller, before the other devices and the multi devices. */}
-          <ChlorinatorCard controllerdata={controllerdata} />
+          <ChlorinatorCard
+            controllerdata={controllerdata}
+            onRefresh={() => MotorController(false, true)}
+            usertype={usertype}
+          />
           {(tankdata?.length > 0 ||
             flowdata?.length > 0 ||
             valvedata?.length > 0 ||
