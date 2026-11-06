@@ -533,3 +533,8 @@ export const DeleteLocationService = (data) => {
 export const RenameDeviceService = (id, formdata) => {
   return axios.put(`device/rename_device/${id}`, formdata);
 };
+
+// The master (Super Admin) sets the TDS, chlorine and pH of one chlorinator by hand
+export const SetChlorinatorValuesService = (id, formdata) => {
+  return axios.put(`device/set_chlorinator_values/${id}`, formdata);
+};

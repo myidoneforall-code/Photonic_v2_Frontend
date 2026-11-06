@@ -89,19 +89,19 @@ export const reading100 = (value) => {
 const cardTable = {
   width: "100%",
   tableLayout: "fixed",
-  borderCollapse: "collapse",
+  borderCollapse: "separate",
+  borderSpacing: "3px",
   margin: "8px 0",
   fontSize: "14px",
 };
 const cardTh = {
   background: "#EAF6FB",
-  border: "1px solid #D9DEE3",
+  borderRadius: "4px",
   padding: "5px 6px",
   textAlign: "center",
   fontWeight: 600,
 };
 const cardTd = {
-  border: "1px solid #D9DEE3",
   padding: "6px",
   textAlign: "center",
   wordBreak: "break-word",

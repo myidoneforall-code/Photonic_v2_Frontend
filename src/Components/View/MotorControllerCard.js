@@ -1,4 +1,4 @@
-import ChlorinatorPanels from "./ChlorinatorPanels";
+import ChlorinatorBlock from "./ChlorinatorBlock";
 import React from "react";
 import { Tooltip } from "antd";
 import commonstyle from "../../Assets/css/CommonStyle.module.css";
@@ -78,7 +78,12 @@ export default function MotorControllerCard({
       }
     >
       <div
-        className={`${motorstyle.motor_on_bg} ${commonstyle.cards_border_radius} ${motorstyle.motor_card_height}`}
+        className={`${motorstyle.motor_on_bg} ${commonstyle.cards_border_radius} ${
+          isChlorinatorCard ? "" : motorstyle.motor_card_height
+        }`}
+        // A chlorinator card is as high as the other cards at least, and grows when it has
+        // more to show (the spanner of the master and its boxes).
+        style={isChlorinatorCard ? { minHeight: "460px" } : undefined}
         onClick={onCardClick}
       >
         <div className={`${motorstyle.motor_on_pad} ${commonstyle.cards_padding}`} style={isChlorinatorCard ? { gap: "8px" } : undefined}>
@@ -617,7 +622,7 @@ export default function MotorControllerCard({
                   {motoron?.chlorinator?.map((datas, i) => {
                     return (
                       <React.Fragment key={i}>
-                        <ChlorinatorPanels unit={datas} />
+                        <ChlorinatorBlock unit={datas} usertype={usertype} />
                       </React.Fragment>
                     );
                   })}

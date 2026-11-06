@@ -1685,11 +1685,11 @@ export default function ProductionControllerDetails() {
                   className="pointerCurser"
                 />
               </div>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
+              <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: 4, fontSize: 14 }}>
                 <thead>
                   <tr>
                     {ChlorinatorChecklist.map((item) => (
-                      <th key={item.id} style={{ ...{ border: "1px solid #d9dee3", padding: "8px 10px", textAlign: "center" }, background: "#eaf6fb", fontWeight: 500 }}>
+                      <th key={item.id} style={{ ...{ borderRadius: 4, padding: "8px 10px", textAlign: "center" }, background: "#eaf6fb", fontWeight: 500 }}>
                         {item.label}
                       </th>
                     ))}
@@ -1698,7 +1698,7 @@ export default function ProductionControllerDetails() {
                 <tbody>
                   <tr>
                     {ChlorinatorChecklist.map((item) => (
-                      <td key={item.id} style={{ border: "1px solid #d9dee3", padding: "8px 10px", textAlign: "center" }}>
+                      <td key={item.id} style={{ padding: "8px 10px", textAlign: "center" }}>
                         <Checkbox
                           disabled={!ShowEditChlorinator}
                           className={"CheckBox_innerStyle"}
