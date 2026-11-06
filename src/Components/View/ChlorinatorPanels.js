@@ -478,7 +478,7 @@ const Cell = ({ icon, label, text, on, first }) => (
 const SwitchesCard = ({ unit }) => {
   const switchOn = flag(unit?.dosing_switch) === 1;
   const pump = flag(unit?.dosing_pump);
-  const pumpOn = pump === 1 || pump === 2;
+  const pumpOn = pump === 1 || pump === 2 || pump === 3;
   const agitatorOn = flag(unit?.agitator) === 1;
   return (
     <div style={{ ...cardStyle(false), display: "flex", alignItems: "center", height: "88px", boxSizing: "border-box", padding: 0 }}>

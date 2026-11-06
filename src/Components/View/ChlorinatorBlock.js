@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FaWrench } from "react-icons/fa";
 import ChlorinatorPanels from "./ChlorinatorPanels";
@@ -68,6 +68,73 @@ const CARD_FIELD = {
 const plain = (value) =>
   /^\d*\.?\d*$/.test(String(value ?? "")) ? String(value ?? "") : "";
 const digit = (value) => (value === null || value === undefined ? "" : String(value));
+
+// The dosing pump as a checklist in a dropdown: nothing ticked is "-" (not set), Off is on its
+// own, and Pump 1 and Pump 2 can both be ticked (some places run both). The value is 0 off,
+// 1 pump 1, 2 pump 2, 3 both.
+const pumpLabel = (value) =>
+  value === "" ? "-" : value === "0" ? "Off" : value === "1" ? "Pump 1" : value === "2" ? "Pump 2" : "Pump 1 + 2";
+
+function PumpPicker({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const holder = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const close = (e) => {
+      if (holder.current && !holder.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [open]);
+
+  const bits = value === "" || value === "0" ? 0 : parseInt(value, 10);
+  const toggle = (bit) => {
+    const next = bits ^ bit;
+    onChange(next === 0 ? "" : String(next));
+  };
+  const row = (text, checked, onClick) => (
+    <label
+      style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", margin: 0, padding: "3px 4px", cursor: "pointer" }}
+    >
+      <input type="checkbox" checked={checked} onChange={onClick} style={{ accentColor: "#F58A07", width: "15px", height: "15px" }} />
+      {text}
+    </label>
+  );
+
+  return (
+    <div ref={holder} style={{ position: "relative" }}>
+      <button
+        type="button"
+        aria-label="Dosing pump"
+        onClick={() => setOpen((pre) => !pre)}
+        style={{ ...select, textAlign: "left", padding: "0 6px", cursor: "pointer", width: "112px" }}
+      >
+        {pumpLabel(value)}
+      </button>
+      {open ? (
+        <div
+          style={{
+            position: "absolute",
+            top: "30px",
+            left: 0,
+            zIndex: 20,
+            background: "#ffffff",
+            border: "1px solid #c9c9c9",
+            borderRadius: "4px",
+            padding: "4px 6px",
+            minWidth: "112px",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+          }}
+        >
+          {row("Off", value === "0", () => onChange(value === "0" ? "" : "0"))}
+          {row("Pump 1", bits === 1 || bits === 3, () => toggle(1))}
+          {row("Pump 2", bits === 2 || bits === 3, () => toggle(2))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 // A chlorinator in the cards: its panels, and, for the master (Super Admin only), a spanner
 // at the bottom left. Touching the spanner shows, right under it, small boxes for TDS,
@@ -216,19 +283,26 @@ export default function ChlorinatorBlock({ unit, usertype }) {
                 {STATUS.map(([key, label, options]) => (
                   <div key={key} style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                     <label style={{ fontSize: "11px", margin: 0 }}>{label}</label>
-                    <select
-                      value={status[key]}
-                      onChange={(e) => setStatus((pre) => ({ ...pre, [key]: e.target.value }))}
-                      style={select}
-                      aria-label={label}
-                    >
-                      <option value="">-</option>
-                      {options.map(([value, text]) => (
-                        <option key={value} value={value}>
-                          {text}
-                        </option>
-                      ))}
-                    </select>
+                    {key === "dp" ? (
+                      <PumpPicker
+                        value={status.dp}
+                        onChange={(next) => setStatus((pre) => ({ ...pre, dp: next }))}
+                      />
+                    ) : (
+                      <select
+                        value={status[key]}
+                        onChange={(e) => setStatus((pre) => ({ ...pre, [key]: e.target.value }))}
+                        style={select}
+                        aria-label={label}
+                      >
+                        <option value="">-</option>
+                        {options.map(([value, text]) => (
+                          <option key={value} value={value}>
+                            {text}
+                          </option>
+                        ))}
+                      </select>
+                    )}
                   </div>
                 ))}
               </div>

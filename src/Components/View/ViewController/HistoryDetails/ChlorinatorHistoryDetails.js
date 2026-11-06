@@ -72,7 +72,8 @@ export const pumpText = (value) => {
     return "-";
   }
   const pump = parseInt(value, 10);
-  return pump === 1 ? "Pump 1" : pump === 2 ? "Pump 2" : "Off";
+  // 3 is pump 1 and pump 2 together
+  return pump === 1 ? "Pump 1" : pump === 2 ? "Pump 2" : pump === 3 ? "Pump 1 + 2" : "Off";
 };
 
 // The chlorinator sends pH (R2) and chlorine (R4) multiplied by 100, so 738 is
