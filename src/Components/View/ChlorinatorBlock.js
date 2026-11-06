@@ -35,10 +35,12 @@ export default function ChlorinatorBlock({ unit, usertype }) {
   // The boxes show what is set now (nothing is set when they are empty).
   useEffect(() => {
     if (!open) {
+      // only a plain number can be in a box, so it can always be cleared
+      const plain = (value) => (/^\d*\.?\d*$/.test(String(value ?? "")) ? String(value ?? "") : "");
       setValues({
-        tds: unit?.tds_set ?? "",
-        chlorine: unit?.chlorine_set ?? "",
-        ph: unit?.ph_set ?? "",
+        tds: plain(unit?.tds_set),
+        chlorine: plain(unit?.chlorine_set),
+        ph: plain(unit?.ph_set),
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
