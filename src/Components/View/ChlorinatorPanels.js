@@ -3,6 +3,7 @@ import chlorineImage from "../../Assets/image/chlorine.png";
 import { chlorinatorTicked } from "../../Utilities/Constants";
 import {
   onOffText,
+  autoManualText,
   pumpText,
   reading100,
   FlowStatus,
@@ -486,7 +487,7 @@ const SwitchesCard = ({ unit }) => {
         first
         icon={<SwitchIcon on={switchOn} />}
         label="Dosing switch"
-        text={onOffText(unit?.dosing_switch)}
+        text={autoManualText(unit?.dosing_switch)}
         on={switchOn}
       />
       <Cell
@@ -498,7 +499,7 @@ const SwitchesCard = ({ unit }) => {
       <Cell
         icon={<AgitatorIcon on={agitatorOn} />}
         label="Agitator"
-        text={onOffText(unit?.agitator)}
+        text={autoManualText(unit?.agitator)}
         on={agitatorOn}
       />
     </div>

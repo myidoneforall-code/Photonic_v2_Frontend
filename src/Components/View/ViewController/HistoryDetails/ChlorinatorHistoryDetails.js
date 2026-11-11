@@ -27,6 +27,10 @@ const hasValue = (value) =>
 export const onOffText = (value) =>
   !hasValue(value) ? "-" : parseInt(value, 10) === 1 ? "On" : "Off";
 
+// The dosing switch and the agitator are not On/Off: 1 is Auto, 0 is Manual.
+export const autoManualText = (value) =>
+  !hasValue(value) ? "-" : parseInt(value, 10) === 1 ? "Auto" : "Manual";
+
 // The pressure switch: 1 means the water is flowing.
 export const flowText = (value) =>
   !hasValue(value)
@@ -231,9 +235,9 @@ export default function Chlorinatorhistorydetails({
                       ))}
                     </tr>
                     <tr>
-                      <td style={cardTd}>{onOffText(row?.dosing_switch)}</td>
+                      <td style={cardTd}>{autoManualText(row?.dosing_switch)}</td>
                       <td style={cardTd}>{pumpText(row?.dosing_pump)}</td>
-                      <td style={cardTd}>{onOffText(row?.agitator)}</td>
+                      <td style={cardTd}>{autoManualText(row?.agitator)}</td>
                     </tr>
                     <tr>
                       <th style={cardTh}>Tank</th>
