@@ -41,6 +41,7 @@ import ConfirmationModal from "../../../Modalcomponents/ConfirmationModal";
 import { ExportedImages } from "../../../Utilities/ImageExport";
 import {
   onOffText,
+  autoManualText,
   pumpText,
   reading100,
   FlowStatus,
@@ -1735,7 +1736,7 @@ export default function ProductionControllerDetails() {
                 {savedTicks.includes(1) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Dosing switch - </span>
-                  <span className="tank-date">{onOffText(data?.dosing_switch)}</span>
+                  <span className="tank-date">{autoManualText(data?.dosing_switch)}</span>
                 </p>
                 ) : null}
                 {savedTicks.includes(1) ? (
@@ -1767,7 +1768,7 @@ export default function ProductionControllerDetails() {
                 {savedTicks.includes(1) ? (
                 <p className="tank-usage">
                   <span className="tank-header">Agitator - </span>
-                  <span className="tank-date">{onOffText(data?.agitator)}</span>
+                  <span className="tank-date">{autoManualText(data?.agitator)}</span>
                 </p>
                 ) : null}
                 {savedTicks.includes(1) ? (

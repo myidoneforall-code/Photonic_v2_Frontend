@@ -41,8 +41,13 @@ const ON_OFF = [
   ["1", "ON"],
   ["0", "OFF"],
 ];
+// dosing switch and agitator: 1 = Auto, 0 = Manual (not ON / OFF)
+const AUTO_MANUAL = [
+  ["1", "Auto"],
+  ["0", "Manual"],
+];
 const STATUS = [
-  ["ds", "Dosing switch", ON_OFF],
+  ["ds", "Dosing switch", AUTO_MANUAL],
   [
     "dp",
     "Dosing pump",
@@ -52,7 +57,7 @@ const STATUS = [
       ["2", "Pump 2"],
     ],
   ],
-  ["as", "Agitator", ON_OFF],
+  ["as", "Agitator", AUTO_MANUAL],
   ["f", "Tank", ON_OFF],
   ["p", "Flow", ON_OFF],
 ];
