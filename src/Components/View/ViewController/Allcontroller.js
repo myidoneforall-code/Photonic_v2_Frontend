@@ -1119,7 +1119,7 @@ export default function Allcontroller() {
                                           <p className="tank-header">
                                             Daily usage{" "}
                                             <span className="tank-date">
-                                              -{datas?.today_usage}{(datas?.today_usage ?? "") !== "" ? " KL" : ""}
+                                              -{datas?.today_usage}{(datas?.today_usage ?? "") !== "" ? " kL" : ""}
                                             </span>
                                           </p>
                                           <p className="tank-header">

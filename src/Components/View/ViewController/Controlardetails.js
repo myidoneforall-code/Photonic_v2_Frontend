@@ -6250,7 +6250,7 @@ export default function Controlardetails() {
                                   Daily Usage -{" "}
                                 </span>
                                 <span className="tank-date">
-                                  {flow.today_usage}{(flow.today_usage ?? "") !== "" ? " KL" : ""}
+                                  {flow.today_usage}{(flow.today_usage ?? "") !== "" ? " kL" : ""}
                                 </span>
                               </p>
                               <p className="tank-usage new-index">
@@ -9354,7 +9354,7 @@ export default function Controlardetails() {
                                                   Daily Usage -{" "}
                                                 </span>
                                                 <span className="tank-date">
-                                                  {flowItem.today_usage}{(flowItem.today_usage ?? "") !== "" ? " KL" : ""}
+                                                  {flowItem.today_usage}{(flowItem.today_usage ?? "") !== "" ? " kL" : ""}
                                                 </span>
                                               </p>
                                               <p className="tank-usage-custom">

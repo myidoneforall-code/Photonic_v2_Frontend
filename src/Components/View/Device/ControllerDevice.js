@@ -1725,7 +1725,7 @@ export default function Controllerdevice() {
                                     Daily Usage -{" "}
                                   </span>
                                   <span className="tank-date">
-                                    {ele.today_usage}{(ele.today_usage ?? "") !== "" ? " KL" : ""}
+                                    {ele.today_usage}{(ele.today_usage ?? "") !== "" ? " kL" : ""}
                                   </span>{" "}
                                 </p>
                                 <p className="tank-usage new-index">

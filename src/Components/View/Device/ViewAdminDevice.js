@@ -1449,7 +1449,7 @@ export default function Viewadmindevice() {
                       <p className="tank-usage">
                         <span className="tank-header">Daily Usage - </span>
                         <span className="tank-date">
-                          {viewData.today_usage}{(viewData.today_usage ?? "") !== "" ? " KL" : ""}
+                          {viewData.today_usage}{(viewData.today_usage ?? "") !== "" ? " kL" : ""}
                         </span>{" "}
                       </p>
                       <p className="tank-usage new-index">
@@ -3002,7 +3002,7 @@ export default function Viewadmindevice() {
                                           Daily Usage -{" "}
                                         </span>
                                         <span className="tank-date">
-                                          {flowItem.today_usage}{(flowItem.today_usage ?? "") !== "" ? " KL" : ""}
+                                          {flowItem.today_usage}{(flowItem.today_usage ?? "") !== "" ? " kL" : ""}
                                         </span>
                                       </p>
                                     </div>

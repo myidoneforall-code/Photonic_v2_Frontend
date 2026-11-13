@@ -1448,7 +1448,7 @@ export default function ProductionControllerDetails() {
                 </p>
                 <p className="tank-usage">
                   <span className="tank-header">Daily Usage - </span>
-                  <span className="tank-date">{data?.today_usage}{(data?.today_usage ?? "") !== "" ? " KL" : ""}</span>
+                  <span className="tank-date">{data?.today_usage}{(data?.today_usage ?? "") !== "" ? " kL" : ""}</span>
                 </p>
                 <p className="tank-usage">
                   <span className="tank-header">Location </span>
@@ -3358,7 +3358,7 @@ export default function ProductionControllerDetails() {
                                       Daily Usage -{" "}
                                     </span>
                                     <span className="tank-date">
-                                      {flowItem.today_usage}{(flowItem.today_usage ?? "") !== "" ? " KL" : ""}
+                                      {flowItem.today_usage}{(flowItem.today_usage ?? "") !== "" ? " kL" : ""}
                                     </span>
                                   </p>
                                   <p
