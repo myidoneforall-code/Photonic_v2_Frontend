@@ -98,6 +98,7 @@ export default function ChlorinatorCard({ controllerdata, onRefresh, usertype })
                 buttongreyid=""
                 usertype={usertype}
                 openNotification={() => {}}
+                showSetValues
                 nameEdit={
                   canEdit
                     ? {

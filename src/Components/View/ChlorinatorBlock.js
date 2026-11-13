@@ -146,8 +146,9 @@ function PumpPicker({ value, onChange }) {
 // Chlorine and pH, dropdowns for the dosing switch, dosing pump, agitator, tank and flow,
 // and a Save button. A value set here is used instead of what the chlorinator sends; "-" or
 // an empty box means its own value is used again. Each chlorinator has its own values.
-export default function ChlorinatorBlock({ unit, usertype }) {
-  const isMaster = Number(usertype) === 1;
+export default function ChlorinatorBlock({ unit, usertype, canSet = false, compact = false }) {
+  // the spanner shows only where canSet is true (the details page), not in the lists
+  const isMaster = canSet && Number(usertype) === 1;
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [values, setValues] = useState({ tds: "", chlorine: "", ph: "" });
@@ -238,7 +239,7 @@ export default function ChlorinatorBlock({ unit, usertype }) {
 
   return (
     <>
-      <ChlorinatorPanels unit={shown} />
+      <ChlorinatorPanels unit={shown} compact={compact} />
       {isMaster ? (
         <div style={{ marginTop: "6px", width: "100%" }}>
           <button

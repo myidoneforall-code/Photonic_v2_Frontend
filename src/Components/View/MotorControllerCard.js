@@ -43,7 +43,8 @@ export default function MotorControllerCard({
   valvebuttontype = 1,
   onCardClick,
   showDeviceMeta = false,
-  nameEdit
+  nameEdit,
+  showSetValues = false
 }) {
   const swPhaseDigit = motoron?.software_version
     ? parseInt(String(motoron.software_version).charAt(0))
@@ -79,11 +80,12 @@ export default function MotorControllerCard({
     >
       <div
         className={`${motorstyle.motor_on_bg} ${commonstyle.cards_border_radius} ${
-          isChlorinatorCard ? "" : motorstyle.motor_card_height
+          isChlorinatorCard && showSetValues ? "" : motorstyle.motor_card_height
         }`}
-        // A chlorinator card is as high as the other cards at least, and grows when it has
-        // more to show (the spanner of the master and its boxes).
-        style={isChlorinatorCard ? { minHeight: "460px" } : undefined}
+        // In the lists a chlorinator card is as high as the other cards. On its details page
+        // (showSetValues) it grows when it has more to show (the spanner of the master and
+        // its boxes).
+        style={isChlorinatorCard && showSetValues ? { minHeight: "460px" } : undefined}
         onClick={onCardClick}
       >
         <div className={`${motorstyle.motor_on_pad} ${commonstyle.cards_padding}`} style={isChlorinatorCard ? { gap: "8px" } : undefined}>
@@ -622,7 +624,7 @@ export default function MotorControllerCard({
                   {motoron?.chlorinator?.map((datas, i) => {
                     return (
                       <React.Fragment key={i}>
-                        <ChlorinatorBlock unit={datas} usertype={usertype} />
+                        <ChlorinatorBlock unit={datas} usertype={usertype} canSet={showSetValues} compact={!showSetValues} />
                       </React.Fragment>
                     );
                   })}

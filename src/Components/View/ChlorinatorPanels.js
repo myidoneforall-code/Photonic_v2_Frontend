@@ -78,7 +78,7 @@ const cardStyle = (alert) => ({
 
 // The four cards on the top row all have this shape.
 const tileStyle = (color, tint) => ({
-  height: "96px",
+  height: "var(--chl-tile, 96px)",
   minWidth: 0,
   border: `2px solid ${color}`,
   borderRadius: "10px",
@@ -93,7 +93,7 @@ const tileStyle = (color, tint) => ({
 
 const ImageTile = () => (
   <div style={{ ...tileStyle(COLORS.primary), border: "none", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>
-    <img src={chlorineImage} alt="chlorinator" style={{ width: 84, height: 84 }} />
+    <img src={chlorineImage} alt="chlorinator" style={{ width: "var(--chl-img, 84px)", height: "var(--chl-img, 84px)" }} />
   </div>
 );
 
@@ -238,7 +238,7 @@ const rowCard = (alert) => ({
   ...cardStyle(alert),
   display: "flex",
   alignItems: "center",
-  height: "88px",
+  height: "var(--chl-row, 88px)",
   boxSizing: "border-box",
   justifyContent: "center",
   gap: "14px",
@@ -482,7 +482,7 @@ const SwitchesCard = ({ unit }) => {
   const pumpOn = pump === 1 || pump === 2 || pump === 3;
   const agitatorOn = flag(unit?.agitator) === 1;
   return (
-    <div style={{ ...cardStyle(false), display: "flex", alignItems: "center", height: "88px", boxSizing: "border-box", padding: 0 }}>
+    <div style={{ ...cardStyle(false), display: "flex", alignItems: "center", height: "var(--chl-row, 88px)", boxSizing: "border-box", padding: 0 }}>
       <Cell
         first
         icon={<SwitchIcon on={switchOn} />}
@@ -510,7 +510,9 @@ const SwitchesCard = ({ unit }) => {
 // design, small and animated): a row of four equal value cards (picture, TDS,
 // chlorine, pH), the pH card with its animation, the tank and the flow, and the
 // switches.
-export default function ChlorinatorPanels({ unit }) {
+// compact: the card in the lists is a fixed 460px high like the other cards, so everything is
+// a little smaller there. The details page keeps the normal size.
+export default function ChlorinatorPanels({ unit, compact = false }) {
   const uid = unit?.device_id ?? "x";
   // The readings ticked on the production page: R1 status (the tank, the flow and
   // the switches), R2 pH, R3 TDS, R4 chlorine. A checklist never edited shows all.
@@ -519,8 +521,17 @@ export default function ChlorinatorPanels({ unit }) {
   return (
     <>
       <style>{CSS}</style>
-      <div style={{ width: "100%", marginTop: "4px", display: "flex", flexDirection: "column", gap: "8px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: `repeat(${tiles}, 1fr)`, gap: "8px" }}>
+      <div
+        style={{
+          width: "100%",
+          marginTop: "4px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--chl-gap, 8px)",
+          ...(compact ? { "--chl-tile": "86px", "--chl-img": "74px", "--chl-row": "80px", "--chl-gap": "6px" } : {}),
+        }}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(${tiles}, 1fr)`, gap: "var(--chl-gap, 8px)" }}>
           <ImageTile />
           {ticks.includes(3) ? (
             <ValueTile label="TDS" value={unit?.tds} unit="ppm" color="#FF4D5A" tint="#FCE7E4" />
@@ -539,7 +550,7 @@ export default function ChlorinatorPanels({ unit }) {
         {ticks.includes(2) ? <PhCard ph={unit?.ph} uid={uid} /> : null}
         {ticks.includes(1) ? (
           <>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--chl-gap, 8px)" }}>
               <TankCard value={unit?.float_status} uid={uid} />
               <FlowCard value={unit?.pressure_switch} uid={uid} />
             </div>
