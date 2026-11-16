@@ -5215,8 +5215,6 @@ export default function Controlardetails() {
                               />
                             )}
                             {/* END */}
-
-                            <TankCleaning device={tank} />
 <div className="btnWidth">
                               <button
                                 type="button"
@@ -5910,6 +5908,9 @@ export default function Controlardetails() {
                                     {/* <span className="tank-date">Ltr</span> */}
                                   </p>
                                 }
+                              <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+                                <TankCleaning device={tank} />
+                              </div>
                               </div>
                             </div>
                           </div>
@@ -8207,7 +8208,7 @@ export default function Controlardetails() {
                                             </div>
 
                                             <div className="d-flex flex-row align-items-center">
-                                              <TankCleaning device={tankItem} />
+                                              <TankCleaning device={tankItem} labels={false} />
                                               {tankItem?.device_code && (
                                                 <p
                                                   className={

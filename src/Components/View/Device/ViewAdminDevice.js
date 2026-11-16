@@ -2790,7 +2790,7 @@ export default function Viewadmindevice() {
                                           </OverlayTrigger>
                                         </div>
                                         <div className="d-flex flex-row align-items-center">
-                                          <TankCleaning device={tankItem} />
+                                          <TankCleaning device={tankItem} labels={false} />
                                           {tankItem?.device_code && (
                                             <p
                                               className={

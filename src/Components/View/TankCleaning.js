@@ -372,23 +372,44 @@ function HistorySheet({ device, onClose }) {
   );
 }
 
-// The two icons of a tank card: Camera and Cleaning history.
-export default function TankCleaning({ device }) {
+// The two icons of a tank card: Camera and Cleaning history, each with its name under it.
+export default function TankCleaning({ device, labels = true }) {
   const [open, setOpen] = useState(null);
   if (!device?.device_id) return null;
   const press = (name) => (e) => {
     e.stopPropagation();
     setOpen(name);
   };
+  const item = (name, title, icon) => (
+    <button
+      type="button"
+      title={title}
+      aria-label={title}
+      onClick={press(name)}
+      style={{
+        border: "none",
+        background: "transparent",
+        padding: 0,
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "3px",
+        color: BLUE,
+      }}
+    >
+      <span style={iconButton}>{icon}</span>
+      {labels ? <span style={{ fontSize: "12px", lineHeight: "14px", color: "#1d1d1f" }}>{title}</span> : null}
+    </button>
+  );
   return (
     <>
-      <div style={{ display: "flex", gap: "8px", alignItems: "center" }} onClick={(e) => e.stopPropagation()}>
-        <button type="button" title="Camera" aria-label="Camera" onClick={press("camera")} style={iconButton}>
-          <FaCamera size={14} />
-        </button>
-        <button type="button" title="Cleaning history" aria-label="Cleaning history" onClick={press("history")} style={iconButton}>
-          <FaHistory size={14} />
-        </button>
+      <div
+        style={{ display: "flex", gap: labels ? "18px" : "8px", alignItems: "flex-start", justifyContent: "center", flexWrap: "wrap" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {item("camera", "Camera", <FaCamera size={14} />)}
+        {item("history", "Cleaning history", <FaHistory size={14} />)}
       </div>
       {open === "camera" ? <CameraSheet device={device} onClose={() => setOpen(null)} /> : null}
       {open === "history" ? <HistorySheet device={device} onClose={() => setOpen(null)} /> : null}
