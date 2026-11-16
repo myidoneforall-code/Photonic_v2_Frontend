@@ -6,6 +6,7 @@ import {
   TankCleaningDatesService,
   TankCleaningDeleteService,
   TankCleaningImageService,
+  TankCleaningReportService,
   TankCleaningUploadService,
 } from "../../Service/ApiService";
 import { getCatchMsg } from "../../Utilities/Methods";
@@ -29,6 +30,17 @@ const MONTHS = [
 const DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
 const pad = (n) => String(n).padStart(2, "0");
+const MAX_DESCRIPTION = 300;
+
+const fieldStyle = {
+  width: "100%",
+  border: "1px solid #c9c9c9",
+  borderRadius: "6px",
+  padding: "6px 8px",
+  fontSize: "13px",
+  background: "#ffffff",
+  color: "#1d1d1f",
+};
 
 const iconButton = {
   width: "30px",
@@ -111,6 +123,7 @@ function CameraSheet({ device, onClose }) {
   const [shot, setShot] = useState(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(null);
+  const [description, setDescription] = useState("");
 
   const stop = () => {
     if (streamRef.current) {
@@ -177,6 +190,7 @@ function CameraSheet({ device, onClose }) {
     setSaving(true);
     const formData = new FormData();
     formData.append("photo", shot.blob, "tank.jpg");
+    formData.append("description", description.trim());
     TankCleaningUploadService(device?.device_id, formData)
       .then(({ data }) => {
         if (data?.status !== 1) {
@@ -201,6 +215,7 @@ function CameraSheet({ device, onClose }) {
         <>
           <img src={saved.image} alt="Saved" style={{ width: "100%", borderRadius: "8px" }} />
           <p style={{ fontSize: "12px", margin: "8px 0 0" }}>Saved {saved.taken_at}</p>
+          {saved.description ? <p style={{ fontSize: "13px", margin: "6px 0 0" }}>{saved.description}</p> : null}
           <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
             <button type="button" onClick={onClose} style={roundButton({ background: BLUE, color: "#fff" })}>
               Done
@@ -213,6 +228,19 @@ function CameraSheet({ device, onClose }) {
           <p style={{ fontSize: "11px", color: "#6b7785", margin: "6px 0 0" }}>
             The date, time and your user ID are written on the photo when it is saved.
           </p>
+          <label style={{ display: "block", fontSize: "12px", margin: "10px 0 3px" }}>Description (optional)</label>
+          <textarea
+            value={description}
+            maxLength={MAX_DESCRIPTION}
+            rows={3}
+            disabled={saving}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="What was done (optional)"
+            style={{ ...fieldStyle, resize: "vertical" }}
+          />
+          <div style={{ fontSize: "11px", color: "#6b7785", textAlign: "right" }}>
+            {description.length}/{MAX_DESCRIPTION}
+          </div>
           <div style={{ display: "flex", justifyContent: "center", gap: "12px", marginTop: "10px" }}>
             <button
               type="button"
@@ -269,6 +297,9 @@ function HistorySheet({ device, onClose }) {
   const [reload, setReload] = useState(0);
   const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [from, setFrom] = useState(`${now.getFullYear()}-${pad(now.getMonth() + 1)}-01`);
+  const [to, setTo] = useState(`${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`);
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     let live = true;
@@ -316,6 +347,41 @@ function HistorySheet({ device, onClose }) {
       .finally(() => setDeleting(false));
   };
 
+  // The PDF report of the photos between the two dates.
+  const download = () => {
+    if (!from || !to) {
+      toast.error("Select the from and to dates");
+      return;
+    }
+    if (from > to) {
+      toast.error("The from date is after the to date");
+      return;
+    }
+    setDownloading(true);
+    TankCleaningReportService(device?.device_id, from, to)
+      .then((res) => {
+        const url = URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `tank_cleaning_${device?.device_name || device?.device_id}_${from}_${to}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      })
+      .catch(async (err) => {
+        // the answer of an error comes as a blob: the message is inside it
+        let message = "Something went wrong";
+        try {
+          message = JSON.parse(await err.response.data.text()).detail || message;
+        } catch (e) {
+          // keep the plain message
+        }
+        toast.error(message);
+      })
+      .finally(() => setDownloading(false));
+  };
+
   const first = new Date(month.y, month.m - 1, 1).getDay();
   const count = new Date(month.y, month.m, 0).getDate();
   const cells = [];
@@ -335,6 +401,12 @@ function HistorySheet({ device, onClose }) {
           {view.user_id ? ` - User ID ${view.user_id}` : ""}
           {view.user_name ? ` (${view.user_name})` : ""}
         </p>
+        {view.description ? (
+          <div style={{ marginTop: "8px", padding: "8px 10px", background: "#f4f6f8", borderRadius: "6px", fontSize: "13px" }}>
+            <div style={{ fontSize: "11px", color: "#6b7785" }}>Description</div>
+            {view.description}
+          </div>
+        ) : null}
         {view.can_delete ? (
           confirming ? (
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginTop: "12px", flexWrap: "wrap" }}>
@@ -410,6 +482,23 @@ function HistorySheet({ device, onClose }) {
       <p style={{ fontSize: "11px", color: "#6b7785", margin: "10px 0 0" }}>
         {loading ? "Loading..." : "Orange dates have a photo."}
       </p>
+      <div style={{ borderTop: "1px solid #e3e8ee", marginTop: "12px", paddingTop: "10px" }}>
+        <div style={{ display: "flex", gap: "8px" }}>
+          <div style={{ flex: 1 }}>
+            <label style={{ display: "block", fontSize: "12px", marginBottom: "2px" }}>From</label>
+            <input type="date" value={from} max={to || undefined} onChange={(e) => setFrom(e.target.value)} style={fieldStyle} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <label style={{ display: "block", fontSize: "12px", marginBottom: "2px" }}>To</label>
+            <input type="date" value={to} min={from || undefined} onChange={(e) => setTo(e.target.value)} style={fieldStyle} />
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+          <button type="button" disabled={downloading} onClick={download} style={roundButton({ background: BLUE, color: "#fff" })}>
+            {downloading ? "Preparing..." : "Download report (PDF)"}
+          </button>
+        </div>
+      </div>
     </Sheet>
   );
 }

@@ -553,3 +553,7 @@ export const TankCleaningImageService = (id, date) => {
 export const TankCleaningDeleteService = (id, date) => {
   return axios.delete(`tank_cleaning/image/${id}?date=${date}`);
 };
+// The PDF report of the photos between two dates
+export const TankCleaningReportService = (id, from, to) => {
+  return axios.get(`tank_cleaning/report/${id}?from_date=${from}&to_date=${to}`, { responseType: "blob" });
+};
