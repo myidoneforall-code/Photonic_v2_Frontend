@@ -28,6 +28,7 @@ import { UpdateDeviceFilter } from "../../Store/Config/Configuration";
 import CommonSwitch from "../../CommonComponents/CommonSwitch";
 import { Checkbox, Col, Row } from "antd";
 import dayjs from "dayjs";
+import TankCleaning from "../TankCleaning";
 
 export default function Viewadmindevice() {
   let abortcontroller = undefined;
@@ -2789,6 +2790,7 @@ export default function Viewadmindevice() {
                                           </OverlayTrigger>
                                         </div>
                                         <div className="d-flex flex-row align-items-center">
+                                          <TankCleaning device={tankItem} />
                                           {tankItem?.device_code && (
                                             <p
                                               className={

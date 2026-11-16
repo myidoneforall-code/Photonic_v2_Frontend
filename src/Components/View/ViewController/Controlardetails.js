@@ -105,6 +105,7 @@ import { cloneWith, values } from "lodash";
 import ModifyControllerCode from "../../../Modalcomponents/ModifyControllerCode";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import TankCleaning from "../TankCleaning";
 
 const threeColonFormat = /^[0-9]+:[0-9]+:[0-9]+$/;
 
@@ -5215,7 +5216,8 @@ export default function Controlardetails() {
                             )}
                             {/* END */}
 
-                            <div className="btnWidth">
+                            <TankCleaning device={tank} />
+<div className="btnWidth">
                               <button
                                 type="button"
                                 className="settings-btn"
@@ -8205,6 +8207,7 @@ export default function Controlardetails() {
                                             </div>
 
                                             <div className="d-flex flex-row align-items-center">
+                                              <TankCleaning device={tankItem} />
                                               {tankItem?.device_code && (
                                                 <p
                                                   className={

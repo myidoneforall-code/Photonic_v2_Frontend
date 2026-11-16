@@ -538,3 +538,14 @@ export const RenameDeviceService = (id, formdata) => {
 export const SetChlorinatorValuesService = (id, formdata) => {
   return axios.put(`device/set_chlorinator_values/${id}`, formdata);
 };
+
+// Tank cleaning history: the live photo of a tank (kept in the database only)
+export const TankCleaningUploadService = (id, formdata) => {
+  return axios.post(`tank_cleaning/upload/${id}`, formdata);
+};
+export const TankCleaningDatesService = (id, year, month) => {
+  return axios.get(`tank_cleaning/dates/${id}?year=${year}&month=${month}`);
+};
+export const TankCleaningImageService = (id, date) => {
+  return axios.get(`tank_cleaning/image/${id}?date=${date}`);
+};
