@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { FaArrowLeft, FaCamera, FaChevronLeft, FaChevronRight, FaHistory, FaTimes } from "react-icons/fa";
 import {
   TankCleaningDatesService,
+  TankCleaningDeleteService,
   TankCleaningImageService,
   TankCleaningUploadService,
 } from "../../Service/ApiService";
@@ -265,6 +266,9 @@ function HistorySheet({ device, onClose }) {
   const [today, setToday] = useState("");
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState(null);
+  const [reload, setReload] = useState(0);
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     let live = true;
@@ -280,7 +284,7 @@ function HistorySheet({ device, onClose }) {
     return () => {
       live = false;
     };
-  }, [device?.device_id, month]);
+  }, [device?.device_id, month, reload]);
 
   const move = (step) =>
     setMonth((pre) => {
@@ -296,6 +300,22 @@ function HistorySheet({ device, onClose }) {
       .catch((err) => getCatchMsg(err));
   };
 
+  // The master deletes the photo of this date (asked once more first), then the calendar shows again.
+  const remove = () => {
+    setDeleting(true);
+    TankCleaningDeleteService(device?.device_id, view.photo_date)
+      .then(({ data }) => {
+        if (data?.status === 1) {
+          toast.success("Photo deleted");
+          setConfirming(false);
+          setView(null);
+          setReload((n) => n + 1);
+        }
+      })
+      .catch((err) => getCatchMsg(err))
+      .finally(() => setDeleting(false));
+  };
+
   const first = new Date(month.y, month.m - 1, 1).getDay();
   const count = new Date(month.y, month.m, 0).getDate();
   const cells = [];
@@ -303,7 +323,10 @@ function HistorySheet({ device, onClose }) {
   for (let d = 1; d <= count; d++) cells.push(d);
 
   if (view) {
-    const back = () => setView(null);
+    const back = () => {
+      setConfirming(false);
+      setView(null);
+    };
     return (
       <Sheet title={view.photo_date.split("-").reverse().join("-")} onBack={back} onClose={back}>
         <img src={view.image} alt="Tank" style={{ width: "100%", borderRadius: "8px" }} />
@@ -312,6 +335,25 @@ function HistorySheet({ device, onClose }) {
           {view.user_id ? ` - User ID ${view.user_id}` : ""}
           {view.user_name ? ` (${view.user_name})` : ""}
         </p>
+        {view.can_delete ? (
+          confirming ? (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginTop: "12px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "13px" }}>Delete this photo?</span>
+              <button type="button" disabled={deleting} onClick={() => setConfirming(false)} style={roundButton({ background: "#eceff3", color: "#1d1d1f", padding: "6px 14px" })}>
+                Cancel
+              </button>
+              <button type="button" disabled={deleting} onClick={remove} style={roundButton({ background: "#c0392b", color: "#fff", padding: "6px 14px" })}>
+                {deleting ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          ) : (
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "12px" }}>
+              <button type="button" onClick={() => setConfirming(true)} style={roundButton({ background: "transparent", color: "#c0392b", border: "1px solid #c0392b", padding: "6px 18px" })}>
+                Delete
+              </button>
+            </div>
+          )
+        ) : null}
       </Sheet>
     );
   }

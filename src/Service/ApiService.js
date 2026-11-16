@@ -549,3 +549,7 @@ export const TankCleaningDatesService = (id, year, month) => {
 export const TankCleaningImageService = (id, date) => {
   return axios.get(`tank_cleaning/image/${id}?date=${date}`);
 };
+// The master (Super Admin) deletes the photo of one date
+export const TankCleaningDeleteService = (id, date) => {
+  return axios.delete(`tank_cleaning/image/${id}?date=${date}`);
+};
