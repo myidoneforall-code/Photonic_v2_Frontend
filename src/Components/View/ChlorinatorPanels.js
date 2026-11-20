@@ -1,4 +1,6 @@
 import { useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa";
 import chlorineImage from "../../Assets/image/chlorine.png";
 import { chlorinatorTicked } from "../../Utilities/Constants";
 import {
@@ -97,8 +99,38 @@ const ImageTile = () => (
   </div>
 );
 
-const ValueTile = ({ label, value, unit, color, tint }) => (
-  <div style={{ ...tileStyle(color, tint), border: "none", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>
+const ValueTile = ({ label, value, unit, color, tint, onOpen }) => (
+  <div
+    role={onOpen ? "button" : undefined}
+    aria-label={onOpen ? `${label} graph` : undefined}
+    onClick={onOpen}
+    style={{
+      ...tileStyle(color, tint),
+      border: "none",
+      boxShadow: "0 1px 4px rgba(0,0,0,0.10)",
+      position: "relative",
+      cursor: onOpen ? "pointer" : undefined,
+    }}
+  >
+    {onOpen ? (
+      <span
+        style={{
+          position: "absolute",
+          top: "5px",
+          right: "5px",
+          width: "18px",
+          height: "18px",
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.8)",
+          color: "#1a6a9e",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <FaChevronRight size={9} />
+      </span>
+    ) : null}
     <p style={{ fontSize: "11px", margin: 0, color: COLORS.text }}>{label}</p>
     <p style={{ fontSize: "22px", fontWeight: 600, margin: "2px 0 0", color: COLORS.text, lineHeight: "24px" }}>
       {hasValue(value) ? value : "-"}
@@ -108,13 +140,14 @@ const ValueTile = ({ label, value, unit, color, tint }) => (
 );
 
 // Top row: the pH value only (the beaker with its animation is the card below).
-const PhValueTile = ({ ph }) => {
+const PhValueTile = ({ ph, onOpen }) => {
   const { shown, number } = phNumber(ph);
   return (
     <ValueTile
       label="pH"
       value={number === null ? null : shown}
       unit=""
+      onOpen={onOpen}
       color="#0EA5E9"
       tint="#E6F7FF"
     />
@@ -518,6 +551,17 @@ export default function ChlorinatorPanels({ unit, compact = false }) {
   // the switches), R2 pH, R3 TDS, R4 chlorine. A checklist never edited shows all.
   const ticks = chlorinatorTicked(unit?.chlorinator_position);
   const tiles = 1 + [2, 3, 4].filter((r) => ticks.includes(r)).length;
+  // touching TDS, Chlorine or pH opens the graph of that reading as a page of its own
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const openGraph = unit?.device_id
+    ? (metric) => (e) => {
+        e.stopPropagation();
+        navigate(`${pathname.startsWith("/production") ? "/production" : "/dashboard"}/chlorinatorgraph`, {
+          state: { device_id: unit.device_id, device_name: unit.device_name, device_code: unit.device_code, metric },
+        });
+      }
+    : () => undefined;
   return (
     <>
       <style>{CSS}</style>
@@ -528,13 +572,13 @@ export default function ChlorinatorPanels({ unit, compact = false }) {
           display: "flex",
           flexDirection: "column",
           gap: "var(--chl-gap, 8px)",
-          ...(compact ? { "--chl-tile": "86px", "--chl-img": "74px", "--chl-row": "80px", "--chl-gap": "6px" } : {}),
+          ...(compact ? { "--chl-tile": "78px", "--chl-img": "68px", "--chl-row": "70px", "--chl-gap": "4px" } : {}),
         }}
       >
         <div style={{ display: "grid", gridTemplateColumns: `repeat(${tiles}, 1fr)`, gap: "var(--chl-gap, 8px)" }}>
           <ImageTile />
           {ticks.includes(3) ? (
-            <ValueTile label="TDS" value={unit?.tds} unit="ppm" color="#FF4D5A" tint="#FCE7E4" />
+            <ValueTile label="TDS" value={unit?.tds} unit="ppm" color="#FF4D5A" tint="#FCE7E4" onOpen={unit?.device_id ? openGraph("tds") : undefined} />
           ) : null}
           {ticks.includes(4) ? (
             <ValueTile
@@ -543,19 +587,35 @@ export default function ChlorinatorPanels({ unit, compact = false }) {
               unit="ppm"
               color="#FBBF24"
               tint="#FFFFE5"
+              onOpen={unit?.device_id ? openGraph("chlorine") : undefined}
             />
           ) : null}
-          {ticks.includes(2) ? <PhValueTile ph={unit?.ph} /> : null}
+          {ticks.includes(2) ? <PhValueTile ph={unit?.ph} onOpen={unit?.device_id ? openGraph("ph") : undefined} /> : null}
         </div>
         {ticks.includes(2) ? <PhCard ph={unit?.ph} uid={uid} /> : null}
         {ticks.includes(1) ? (
-          <>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--chl-gap, 8px)" }}>
-              <TankCard value={unit?.float_status} uid={uid} />
-              <FlowCard value={unit?.pressure_switch} uid={uid} />
+          <div style={{ border: `1px solid ${COLORS.border}`, borderRadius: "12px", overflow: "hidden", background: "#F7FAFC" }}>
+            <div
+              style={{
+                background: "#EAF6FB",
+                color: "#1a6a9e",
+                textAlign: "center",
+                fontSize: compact ? "12px" : "13px",
+                fontWeight: 600,
+                padding: compact ? "4px 6px" : "7px 8px",
+                borderBottom: `1px solid ${COLORS.border}`,
+              }}
+            >
+              Smart Chlorine Management System
             </div>
-            <SwitchesCard unit={unit} />
-          </>
+            <div style={{ padding: compact ? "5px" : "8px", display: "flex", flexDirection: "column", gap: "var(--chl-gap, 8px)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--chl-gap, 8px)" }}>
+                <TankCard value={unit?.float_status} uid={uid} />
+                <FlowCard value={unit?.pressure_switch} uid={uid} />
+              </div>
+              <SwitchesCard unit={unit} />
+            </div>
+          </div>
         ) : null}
       </div>
     </>

@@ -350,7 +350,8 @@ export default function MotorControllerCard({
               )}
               {motoron.device?.chlorinator > 0 && (
                 <p>
-                  chlorinator-<span>{motoron.device.chlorinator}</span>
+                  Chlorinator Water Analyzer
+                  {motoron.device.chlorinator > 1 ? <span> - {motoron.device.chlorinator}</span> : null}
                 </p>
               )}
             </div>

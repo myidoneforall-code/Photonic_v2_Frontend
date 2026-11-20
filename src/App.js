@@ -14,6 +14,7 @@ import {
 } from "./Components/Header/Navigation";
 import Admindashboard from "./Components/View/Dashboard/Admindashboard";
 import Controllerdetails from "./Components/View/ViewController/Controlardetails";
+import ChlorinatorGraph from "./Components/View/ChlorinatorGraph";
 import Motorcontrolleron from "./Components/View/ViewController/Motorcontrolleron";
 import Allcontroller from "./Components/View/ViewController/Allcontroller";
 import AllLightContoller from "./Components/View/ViewLightController/LightAllContoller";
@@ -207,6 +208,7 @@ const routes = [
             ]
           },
           { path: "deletecontroller", element: <Deletecontroller /> },
+          { path: "chlorinatorgraph", element: <ChlorinatorGraph /> },
 
           { path: "profile", element: <Userprofile /> },
           {
@@ -269,6 +271,7 @@ const routes = [
             element: <ProductionController />
           },
           { path: "view", element: <ProductionControllerDetails /> },
+          { path: "chlorinatorgraph", element: <ChlorinatorGraph /> },
           { path: "profile", element: <Userprofile /> },
           { path: "mqtt", element: <Mqtt /> }
         ]

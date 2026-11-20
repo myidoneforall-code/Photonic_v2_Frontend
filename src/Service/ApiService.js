@@ -554,6 +554,10 @@ export const TankCleaningDeleteService = (id, date) => {
   return axios.delete(`tank_cleaning/image/${id}?date=${date}`);
 };
 // The PDF report of the photos between two dates
+// The readings of a chlorinator (TDS, chlorine or pH) between two dates, for its graph page
+export const ChlorinatorSeriesService = (id, metric, from, to) => {
+  return axios.get(`chlorinator_graph/series/${id}?metric=${metric}&from_date=${from}&to_date=${to}`);
+};
 export const TankCleaningReportService = (id, from, to) => {
   return axios.get(`tank_cleaning/report/${id}?from_date=${from}&to_date=${to}`, { responseType: "blob" });
 };
